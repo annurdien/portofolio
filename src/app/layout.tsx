@@ -10,18 +10,21 @@ const plexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: "Rasyid Portfolio Log",
-  description: "Showcasing impactful software projects with clean design and quick insights.",
-  metadataBase: new URL("https://example.com"),
+  description: "Rasyid Portfolio Log",
+  metadataBase: new URL("https://log.rasyid.codes"),
+  icons: {
+    icon: "/favicon.svg",
+  },
   openGraph: {
-    title: "Rasyid Portfolio Log",
+    title: "Rasyid's Portfolio Log",
     description: "Discover featured software projects crafted by Rasyid.",
-    url: "https://example.com",
-    siteName: "Rasyid Portfolio Log",
+    url: "https://log.rasyid.codes",
+    siteName: "Rasyid's Portfolio Log",
     type: "website"
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rasyid Portfolio Log",
+    title: "Rasyid's Portfolio Log",
     description: "Discover featured software projects crafted by Rasyid."
   }
 };
