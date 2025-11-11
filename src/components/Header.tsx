@@ -4,9 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 const navLinks = [
-  { label: "Explore", href: "#projects", accent: true },
-  { label: "Featured", href: "#featured" },
-  { label: "Archive", href: "#projects" },
+  { label: "Projects", href: "#projects", accent: true },
   { label: "About", href: "#about" },
 ];
 
@@ -23,7 +21,7 @@ export function Header() {
           <span className="flex h-3 w-3 items-center justify-center border border-primary-300 bg-background-900" aria-hidden>
             <span className="h-1.5 w-1.5 animate-pulse bg-primary-300" />
           </span>
-          Rasyid Trove
+          Rasyid Portfolio
         </Link>
         <nav className="hidden items-center gap-6 text-[0.65rem] uppercase tracking-[0.32em] text-primary-200/70 lg:flex">
           {navLinks.map((link) => (
@@ -38,10 +36,6 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <div className="hidden items-center gap-5 text-[0.6rem] uppercase tracking-[0.32em] text-primary-200/60 lg:flex">
-          <span>Mode: Portfolio</span>
-          <span>Prompt: open source</span>
-        </div>
         <button
           type="button"
           className="grid h-10 w-10 place-content-center border border-primary-400/40 bg-background-900 text-primary-200 transition duration-200 ease-terminal hover:border-primary-400 hover:text-primary-50 lg:hidden"
@@ -87,8 +81,8 @@ export function Header() {
             ))}
             <li>
               <div className="mt-3 grid gap-1 text-xs text-primary-200/70">
-                <span>Mode: Portfolio</span>
-                <span>Prompt: open source</span>
+                <span>Focus: Personal work</span>
+                <span>Status: Always building</span>
               </div>
             </li>
           </ul>

@@ -170,18 +170,17 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
 
   return (
     <section id="projects" className="relative mx-auto max-w-6xl px-6 pb-20">
-      <div className="border-b border-primary-400/30 pb-10">
+      <div>
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-3">
             <span className="text-xs uppercase tracking-[0.3em] text-primary-200/70">
-              Explore terminal tools
+              Browse personal work
             </span>
             <h1 className="text-3xl font-semibold text-primary-50 md:text-[2.6rem] md:leading-tight">
-              Curated project trove
+              Projects I’ve been building
             </h1>
             <p className="max-w-2xl text-sm text-primary-200/75 md:text-base">
-              Browsing {projects.length} shipped experiments, platforms, and production builds.
-              Dial in a stack, status, or release year with the filters to the left.
+              Explore my personal project that I've been building over the years.
             </p>
           </div>
           <div className="flex flex-col gap-2 text-xs uppercase tracking-[0.25em] text-primary-200/60">
@@ -195,7 +194,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
               htmlFor="project-search"
               className="text-[0.8rem] uppercase tracking-[0.25em] text-white"
             >
-              Search prompt
+              Search projects
             </label>
             <div className="relative">
               <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-xs font-semibold text-primary-200/70">
@@ -206,14 +205,14 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                 type="search"
                 value={searchTerm}
                 onChange={(event) => setSearchTerm(event.target.value)}
-                placeholder="Type stack, tag, or project keyword"
+                placeholder="Type language, tag, or project keyword"
                 className="w-full border border-primary-500 bg-background-900 py-3 pl-9 pr-4 text-sm text-primary-50 outline-none transition duration-150 ease-terminal focus:border-primary-400"
               />
             </div>
           </div>
           <div className="flex flex-col gap-3 text-[0.75rem] uppercase tracking-[0.2em] text-white lg:flex-row lg:items-center lg:gap-6">
             <div className="flex flex-col gap-2">
-              <span>View</span>
+              <span>Card density</span>
               <div className="inline-flex border border-primary-400/40 bg-background-900">
                 {densityOptions.map((option) => {
                   const isActive = option.value === density;
@@ -235,7 +234,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
               </div>
             </div>
             <div className="flex flex-col gap-2">
-              <span>Page Size</span>
+              <span>Items per page</span>
               <div className="inline-flex border border-primary-400/40 bg-background-900">
                 {pageSizeOptions.map((option) => {
                   const isActive = option === pageSize;
@@ -379,7 +378,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
         <div className="space-y-10">
           {filteredProjects.length === 0 ? (
             <div className="border border-primary-400/40 bg-background-900 p-12 text-center text-sm text-primary-200/70">
-              No projects match that query yet.
+              No projects match that combination yet.
             </div>
           ) : (
             <div className={`grid gap-6 ${densityGridMap[density]}`}>
