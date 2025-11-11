@@ -282,8 +282,8 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                       onClick={() => toggleSelection(year, setActiveYears)}
                       className={`border px-3 py-1 text-[0.65rem] uppercase tracking-[0.1em] transition duration-150 ease-terminal ${
                         active
-                          ? "border-primary-400 bg-primary-500/10 text-primary-100"
-                          : "border-primary-400/30 text-primary-200/70 hover:border-primary-400 hover:text-primary-100"
+                          ? "border-primary-400 bg-primary-500/10 text-white"
+                          : "border-primary-400/30 text-white hover:border-primary-400 hover:text-primary-100"
                       }`}
                     >
                       {year}
@@ -305,8 +305,8 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                       onClick={() => toggleSelection(status, setActiveStatuses)}
                       className={`flex items-center gap-2 border px-3 py-1 text-[0.65rem] uppercase tracking-[0.2em] transition duration-150 ease-terminal ${
                         active
-                          ? "border-primary-400 bg-primary-500/10 text-primary-100"
-                          : "border-primary-400/30 text-primary-200/70 hover:border-primary-400 hover:text-primary-100"
+                          ? "border-primary-400 bg-primary-500/10 text-white"
+                          : "border-primary-400/30 text-white hover:border-primary-400 hover:text-primary-100"
                       }`}
                     >
                       <span
@@ -332,12 +332,12 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                       onClick={() => toggleSelection(category, setActiveCategories)}
                       className={`flex items-center justify-between border px-3 py-2 text-[0.65rem] uppercase tracking-[0.2em] transition duration-150 ease-terminal ${
                         active
-                          ? "border-primary-400 bg-primary-500/10 text-primary-100"
-                          : "border-primary-400/30 text-primary-200/70 hover:border-primary-400 hover:text-primary-100"
+                          ? "border-primary-400 bg-primary-500/10 text-white"
+                          : "border-primary-400/30 text-white hover:border-primary-400 hover:text-primary-100"
                       }`}
                     >
                       {category}
-                      <span className="text-[0.55rem] text-primary-200/50">
+                      <span className="text-[0.55rem] text-white">
                         {projects.filter((project) => project.category === category).length}
                       </span>
                     </button>
@@ -359,8 +359,8 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                         onClick={() => toggleSelection(tag, setActiveTags)}
                         className={`border px-3 py-1 text-[0.65rem] uppercase tracking-[0.2em] transition duration-150 ease-terminal ${
                           active
-                            ? "border-primary-400 bg-primary-500/15 text-primary-50"
-                            : "border-primary-400/30 text-primary-200/70 hover:border-primary-400 hover:text-primary-100"
+                            ? "border-primary-400 bg-primary-500/15 text-white"
+                            : "border-primary-400/30 text-white hover:border-primary-400 hover:text-primary-100"
                         }`}
                       >
                         #{tag}
