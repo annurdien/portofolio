@@ -16,12 +16,12 @@ export function Header() {
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
         <Link
           href="/"
-          className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.45em] text-primary-200 transition duration-150 ease-terminal hover:text-primary-50"
+          className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-primary-200 transition duration-150 ease-terminal hover:text-primary-50"
         >
           <span className="flex h-3 w-3 items-center justify-center border border-primary-300 bg-background-900" aria-hidden>
             <span className="h-1.5 w-1.5 animate-pulse bg-primary-300" />
           </span>
-          Rasyid Portfolio
+          Rasyid Portfolio Log
         </Link>
         <nav className="hidden items-center gap-6 text-[0.65rem] uppercase tracking-[0.32em] text-primary-200/70 lg:flex">
           {navLinks.map((link) => (

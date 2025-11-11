@@ -9,19 +9,19 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rasyid Portfolio",
+  title: "Rasyid Portfolio Log",
   description: "Showcasing impactful software projects with clean design and quick insights.",
   metadataBase: new URL("https://example.com"),
   openGraph: {
-    title: "Rasyid Portfolio",
+    title: "Rasyid Portfolio Log",
     description: "Discover featured software projects crafted by Rasyid.",
     url: "https://example.com",
-    siteName: "Rasyid Portfolio",
+    siteName: "Rasyid Portfolio Log",
     type: "website"
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rasyid Portfolio",
+    title: "Rasyid Portfolio Log",
     description: "Discover featured software projects crafted by Rasyid."
   }
 };
