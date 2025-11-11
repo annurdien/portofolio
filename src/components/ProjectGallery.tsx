@@ -180,7 +180,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
               Explore my personal project that I've been building over the years.
             </p>
           </div>
-          <div className="flex flex-col gap-2 text-xs uppercase tracking-[0.25em] text-primary-200/60">
+          <div className="flex flex-col gap-2 text-xs uppercase tracking-[0.25em] text-white">
             <span>Results · {filteredProjects.length.toString().padStart(2, "0")}/{projects.length.toString().padStart(2, "0")}</span>
             <span>Filters active · {hasActiveFilters ? "Yes" : "No"}</span>
           </div>
@@ -221,7 +221,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                       className={`px-4 py-2 text-[0.65rem] font-semibold transition duration-200 ease-terminal ${
                         isActive
                           ? "bg-primary-500 text-background-950"
-                          : "text-primary-200/70 hover:text-primary-100"
+                          : "text-white hover:text-primary-100"
                       }`}
                     >
                       {option.label}
@@ -243,7 +243,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                       className={`px-3 py-2 text-[0.65rem] font-semibold transition duration-200 ease-terminal ${
                         isActive
                           ? "bg-primary-500 text-background-950"
-                          : "text-primary-200/70 hover:text-primary-100"
+                          : "text-white hover:text-primary-100"
                       }`}
                     >
                       {option}
