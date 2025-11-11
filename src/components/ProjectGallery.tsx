@@ -153,7 +153,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
       <div className="border-b border-primary-400/30 pb-10">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-3">
-            <span className="text-xs uppercase tracking-[0.45em] text-primary-200/70">
+            <span className="text-xs uppercase tracking-[0.3em] text-primary-200/70">
               Explore terminal tools
             </span>
             <h1 className="text-3xl font-semibold text-primary-50 md:text-[2.6rem] md:leading-tight">
@@ -164,7 +164,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
               Dial in a stack, status, or release year with the filters to the left.
             </p>
           </div>
-          <div className="flex flex-col gap-2 text-xs uppercase tracking-[0.35em] text-primary-200/60">
+          <div className="flex flex-col gap-2 text-xs uppercase tracking-[0.25em] text-primary-200/60">
             <span>Results · {filteredProjects.length.toString().padStart(2, "0")}/{projects.length.toString().padStart(2, "0")}</span>
             <span>Filters active · {hasActiveFilters ? "Yes" : "No"}</span>
           </div>
@@ -173,7 +173,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
           <div className="flex w-full flex-col gap-3 lg:max-w-md">
             <label
               htmlFor="project-search"
-              className="text-[0.65rem] uppercase tracking-[0.35em] text-primary-200/60"
+              className="text-[0.8rem] uppercase tracking-[0.25em] text-white"
             >
               Search prompt
             </label>
@@ -187,11 +187,11 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                 value={searchTerm}
                 onChange={(event) => setSearchTerm(event.target.value)}
                 placeholder="Type stack, tag, or project keyword"
-                className="w-full border border-primary-400/40 bg-background-900 py-3 pl-9 pr-4 text-sm text-primary-50 outline-none transition duration-150 ease-terminal focus:border-primary-400"
+                className="w-full border border-primary-500 bg-background-900 py-3 pl-9 pr-4 text-sm text-primary-50 outline-none transition duration-150 ease-terminal focus:border-primary-400"
               />
             </div>
           </div>
-          <div className="flex flex-col gap-2 text-[0.6rem] uppercase tracking-[0.35em] text-primary-200/60">
+          <div className="flex flex-col gap-2 text-[0.8rem] uppercase tracking-[0.25em] text-white">
             <span>View</span>
             <div className="inline-flex border border-primary-400/40 bg-background-900">
               {densityOptions.map((option) => {
@@ -203,8 +203,8 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                     onClick={() => setDensity(option.value)}
                     className={`px-4 py-2 text-[0.65rem] font-semibold transition duration-200 ease-terminal ${
                       isActive
-                        ? "bg-primary-500 text-background-950"
-                        : "text-primary-200/70 hover:text-primary-100"
+                        ? "bg-primary-500 text-background-950 uppercase"
+                        : "text-primary-200/70 hover:text-primary-100 uppercase"
                     }`}
                   >
                     {option.label}
@@ -217,21 +217,21 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
       </div>
 
       <div className="mt-12 grid gap-10 lg:grid-cols-[18rem,1fr]">
-        <aside className="space-y-8 border border-primary-400/40 bg-background-900 p-6">
-            <div className="flex items-center justify-between text-[0.65rem] uppercase tracking-[0.35em] text-primary-200/70">
-              <span>Filters</span>
+        <aside className="space-y-8 border border-primary-500 bg-background-900 p-6">
+            <div className="flex items-center justify-between text-[0.8rem] uppercase tracking-[0.1em] text-white">
+              <span className="font-semibold">Filters</span>
               <button
                 type="button"
                 onClick={clearFilters}
                 disabled={!hasActiveFilters}
-                className="border border-transparent px-3 py-1 text-primary-200 transition duration-150 ease-terminal hover:border-primary-400 hover:text-primary-50 disabled:cursor-not-allowed disabled:text-primary-200/40"
+                className="border border-transparent px-3 py-1 font-semibold text-white underline decoration-white/70 underline-offset-4 transition duration-150 ease-terminal hover:border-primary-400 hover:text-primary-50 disabled:cursor-not-allowed disabled:text-primary-200/40"
               >
                 Clear All
               </button>
             </div>
 
             <div className="space-y-3">
-              <p className="text-[0.6rem] uppercase tracking-[0.35em] text-primary-200/50">Year</p>
+              <p className="text-[0.8rem] font-medium uppercase tracking-[0.1em] text-white">Year</p>
               <div className="flex flex-wrap gap-2">
                 {years.map((year) => {
                   const active = activeYears.includes(year);
@@ -240,7 +240,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                       key={year}
                       type="button"
                       onClick={() => toggleSelection(year, setActiveYears)}
-                      className={`border px-3 py-1 text-[0.65rem] uppercase tracking-[0.28em] transition duration-150 ease-terminal ${
+                      className={`border px-3 py-1 text-[0.65rem] uppercase tracking-[0.1em] transition duration-150 ease-terminal ${
                         active
                           ? "border-primary-400 bg-primary-500/10 text-primary-100"
                           : "border-primary-400/30 text-primary-200/70 hover:border-primary-400 hover:text-primary-100"
@@ -254,7 +254,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
             </div>
 
             <div className="space-y-3">
-              <p className="text-[0.6rem] uppercase tracking-[0.35em] text-primary-200/50">Status</p>
+              <p className="text-[0.8rem] font-medium uppercase tracking-[0.1em] text-white">Status</p>
               <div className="flex flex-wrap gap-2">
                 {statuses.map((status) => {
                   const active = activeStatuses.includes(status);
@@ -263,7 +263,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                       key={status}
                       type="button"
                       onClick={() => toggleSelection(status, setActiveStatuses)}
-                      className={`flex items-center gap-2 border px-3 py-1 text-[0.65rem] uppercase tracking-[0.28em] transition duration-150 ease-terminal ${
+                      className={`flex items-center gap-2 border px-3 py-1 text-[0.65rem] uppercase tracking-[0.2em] transition duration-150 ease-terminal ${
                         active
                           ? "border-primary-400 bg-primary-500/10 text-primary-100"
                           : "border-primary-400/30 text-primary-200/70 hover:border-primary-400 hover:text-primary-100"
@@ -281,7 +281,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
             </div>
 
             <div className="space-y-3">
-              <p className="text-[0.6rem] uppercase tracking-[0.35em] text-primary-200/50">Category</p>
+              <p className="text-[0.8rem] font-medium uppercase tracking-[0.1em] text-white">Category</p>
               <div className="flex flex-col gap-2">
                 {categories.map((category) => {
                   const active = activeCategories.includes(category);
@@ -290,7 +290,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                       key={category}
                       type="button"
                       onClick={() => toggleSelection(category, setActiveCategories)}
-                      className={`flex items-center justify-between border px-3 py-2 text-[0.65rem] uppercase tracking-[0.28em] transition duration-150 ease-terminal ${
+                      className={`flex items-center justify-between border px-3 py-2 text-[0.65rem] uppercase tracking-[0.2em] transition duration-150 ease-terminal ${
                         active
                           ? "border-primary-400 bg-primary-500/10 text-primary-100"
                           : "border-primary-400/30 text-primary-200/70 hover:border-primary-400 hover:text-primary-100"
@@ -308,7 +308,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
 
             {tags.length > 0 && (
               <div className="space-y-3">
-                <p className="text-[0.6rem] uppercase tracking-[0.35em] text-primary-200/50">Tags</p>
+                <p className="text-[0.8rem] font-medium uppercase tracking-[0.1em] text-white">Tags</p>
                 <div className="flex flex-wrap gap-2">
                   {tags.map((tag) => {
                     const active = activeTags.includes(tag);
@@ -317,7 +317,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                         key={tag}
                         type="button"
                         onClick={() => toggleSelection(tag, setActiveTags)}
-                        className={`border px-3 py-1 text-[0.65rem] uppercase tracking-[0.28em] transition duration-150 ease-terminal ${
+                        className={`border px-3 py-1 text-[0.65rem] uppercase tracking-[0.2em] transition duration-150 ease-terminal ${
                           active
                             ? "border-primary-400 bg-primary-500/15 text-primary-50"
                             : "border-primary-400/30 text-primary-200/70 hover:border-primary-400 hover:text-primary-100"
@@ -344,7 +344,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
               ))}
             </div>
           )}
-          <div className="flex flex-col items-center justify-between gap-3 border-t border-primary-400/40 pt-6 text-[0.65rem] uppercase tracking-[0.35em] text-primary-200/60 sm:flex-row">
+          <div className="flex flex-col items-center justify-between gap-3 border-t border-primary-400/40 pt-6 text-[0.65rem] uppercase tracking-[0.25em] text-primary-200/60 sm:flex-row">
             <span>
               Showing {filteredProjects.length} of {projects.length} projects
             </span>

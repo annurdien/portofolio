@@ -26,7 +26,7 @@ export const projects: Project[] = [
     summary: "AI-powered travel planner that crafts personalized itineraries in seconds.",
     description:
       "Combines GPT-powered recommendations with real-time flight and accommodation data to generate travel plans tailored to budget, pace, and interests.",
-    tech: ["Next.js", "TypeScript", "OpenAI", "Tailwind CSS"],
+  tech: ["TypeScript"],
     links: [
       { label: "Live", href: "https://example.com/neural-voyager" },
       { label: "GitHub", href: "https://github.com/username/neural-voyager" }
@@ -45,7 +45,7 @@ export const projects: Project[] = [
     summary: "Design system with token-based theming for rapid product teams.",
     description:
       "Delivers composable UI primitives and a design token pipeline that syncs Figma, Storybook, and production code in one workflow.",
-    tech: ["React", "Storybook", "Radix UI", "Turborepo"],
+  tech: ["TypeScript"],
     links: [
       { label: "Live", href: "https://example.com/aurora-ui" },
       { label: "GitHub", href: "https://github.com/username/aurora-ui" }
@@ -64,7 +64,7 @@ export const projects: Project[] = [
     summary: "Minimal bookkeeping SaaS keeping solopreneurs audit-ready.",
     description:
       "Automates invoice parsing, real-time cash flow dashboards, and quarterly tax exports with bank-level security integrations.",
-    tech: ["Remix", "PostgreSQL", "Prisma", "AWS"],
+  tech: ["TypeScript"],
     links: [
       { label: "Live", href: "https://example.com/ledger-lite" },
       { label: "GitHub", href: "https://github.com/username/ledger-lite" }
@@ -81,7 +81,7 @@ export const projects: Project[] = [
     summary: "Mission control dashboard for scaling operations teams.",
     description:
       "Unified incident response, staffing insights, and SLAs into a single cockpit with command palettes and role-based automations.",
-    tech: ["Next.js", "tRPC", "PlanetScale", "Tailwind CSS"],
+  tech: ["TypeScript"],
     links: [
       { label: "Case Study", href: "https://example.com/orbit-ops" },
       { label: "GitHub", href: "https://github.com/username/orbit-ops" }
@@ -100,7 +100,7 @@ export const projects: Project[] = [
     summary: "Product analytics suite built for live experimentation.",
     description:
       "Event pipelines, cohort analysis, and release impact snapshots with plug-and-play SDKs for web and mobile.",
-    tech: ["Next.js", "ClickHouse", "Kafka", "Tailwind CSS"],
+  tech: ["Python"],
     links: [
       { label: "Live", href: "https://example.com/drift-metrics" },
       { label: "GitHub", href: "https://github.com/username/drift-metrics" }
@@ -117,7 +117,7 @@ export const projects: Project[] = [
     summary: "Interactive storytelling tool for educators and creators.",
     description:
       "Drag-and-drop scene builder with multiplayer editing, asset libraries, and adaptive streaming outputs.",
-    tech: ["Next.js", "WebRTC", "Tailwind CSS", "Supabase"],
+  tech: ["TypeScript"],
     links: [
       { label: "Live", href: "https://example.com/canvas-cast" },
       { label: "GitHub", href: "https://github.com/username/canvas-cast" }
@@ -134,7 +134,7 @@ export const projects: Project[] = [
     summary: "Research repository connecting user insights to product roadmaps.",
     description:
       "Supports transcripts, highlight reels, and stakeholder newsletters with automated tagging and AI-assisted synthesis.",
-    tech: ["Next.js", "OpenAI", "Supabase", "Tailwind CSS"],
+  tech: ["Python"],
     links: [
       { label: "Live", href: "https://example.com/pulse-note" },
       { label: "GitHub", href: "https://github.com/username/pulse-note" }
@@ -151,7 +151,7 @@ export const projects: Project[] = [
     summary: "Self-serve data portal with contract testing and lineage maps.",
     description:
       "Empowered analysts to ship governed datasets faster with column-level lineage, drift alerts, and documentation hubs.",
-    tech: ["Next.js", "GraphQL", "Hasura", "Tailwind CSS"],
+  tech: ["TypeScript"],
     links: [
       { label: "Case Study", href: "https://example.com/atlas-query" },
       { label: "GitHub", href: "https://github.com/username/atlas-query" }
@@ -168,7 +168,7 @@ export const projects: Project[] = [
     summary: "Cloud security agent delivering posture insights in minutes.",
     description:
       "Surface misconfigurations, drift, and compliance gaps across multi-cloud environments with real-time remediation guides.",
-    tech: ["Next.js", "Rust", "gRPC", "Tailwind CSS"],
+  tech: ["Rust"],
     links: [
       { label: "Live", href: "https://example.com/nimbus-guard" },
       { label: "GitHub", href: "https://github.com/username/nimbus-guard" }
