@@ -15,12 +15,6 @@ const sortProjects = (items: Project[]) =>
     return a.title.localeCompare(b.title);
   });
 
-const statusIndicator: Record<Project["status"], string> = {
-  Shipped: "bg-status-shipped",
-  "In Beta": "bg-status-beta",
-  Exploration: "bg-status-exploration",
-};
-
 const densityOptions = [
   { label: "Compact", value: "compact" as const },
   { label: "Comfortable", value: "comfortable" as const },
@@ -35,10 +29,27 @@ const densityGridMap: Record<(typeof densityOptions)[number]["value"], string> =
 
 const pageSizeOptions = [8, 16, 32, 64] as const;
 
+const languageColorMap: Record<string, string> = {
+  JavaScript: "bg-[#F8E71C] text-background-950",
+  TypeScript: "bg-[#58C4F6] text-background-950",
+  Python: "bg-[#5B8DEC] text-background-950",
+  "C#": "bg-[#9B6CFF] text-background-900",
+  "C++": "bg-[#FF5D9D] text-background-900",
+  Go: "bg-[#7DE2D1] text-background-950",
+  Rust: "bg-[#FF9A57] text-background-900",
+  Ruby: "bg-[#FF7CA3] text-background-900",
+  PHP: "bg-[#9E8CFF] text-background-900",
+  Swift: "bg-[#FFC75F] text-background-950",
+  Kotlin: "bg-[#FF8EBB] text-background-900",
+  Elixir: "bg-[#C68BFF] text-background-900",
+  Scala: "bg-[#FF7F6A] text-background-900",
+  Java: "bg-[#FFD966] text-background-950",
+};
+
 export function ProjectGallery({ projects }: ProjectGalleryProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeYears, setActiveYears] = useState<string[]>([]);
-  const [activeStatuses, setActiveStatuses] = useState<Project["status"][]>([]);
+  const [activeLanguages, setActiveLanguages] = useState<string[]>([]);
   const [activeCategories, setActiveCategories] = useState<string[]>([]);
   const [activeTags, setActiveTags] = useState<string[]>([]);
   const [density, setDensity] = useState<(typeof densityOptions)[number]["value"]>("compact");
@@ -53,13 +64,13 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
     [projects]
   );
 
-  const statuses = useMemo(
-    () =>
-      Array.from<Project["status"]>(
-        new Set(projects.map((project) => project.status))
-      ),
-    [projects]
-  );
+  const languages = useMemo(() => {
+    const languageSet = new Set<string>();
+    projects.forEach((project) => {
+      project.tech.forEach((tech) => languageSet.add(tech));
+    });
+    return Array.from(languageSet).sort();
+  }, [projects]);
 
   const categories = useMemo(
     () =>
@@ -90,14 +101,14 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
 
   const clearFilters = () => {
     setActiveYears([]);
-    setActiveStatuses([]);
+    setActiveLanguages([]);
     setActiveCategories([]);
     setActiveTags([]);
   };
 
   const hasActiveFilters =
     activeYears.length +
-      activeStatuses.length +
+      activeLanguages.length +
       activeCategories.length +
       activeTags.length >
     0;
@@ -125,12 +136,16 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
         return false;
       }
 
-      if (activeStatuses.length && !activeStatuses.includes(project.status)) {
+      if (activeCategories.length && !activeCategories.includes(project.category)) {
         return false;
       }
 
-      if (activeCategories.length && !activeCategories.includes(project.category)) {
-        return false;
+      if (activeLanguages.length) {
+        const projectLanguages = project.tech;
+        const languageHit = projectLanguages.some((tech) => activeLanguages.includes(tech));
+        if (!languageHit) {
+          return false;
+        }
       }
 
       if (activeTags.length) {
@@ -147,7 +162,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
     projects,
     normalizedSearch,
     activeYears,
-    activeStatuses,
+    activeLanguages,
     activeCategories,
     activeTags,
   ]);
@@ -160,7 +175,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [normalizedSearch, activeYears, activeStatuses, activeCategories, activeTags, pageSize]);
+  }, [normalizedSearch, activeYears, activeLanguages, activeCategories, activeTags, pageSize]);
 
   useEffect(() => {
     if (currentPage > totalPages) {
@@ -294,26 +309,21 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
             </div>
 
             <div className="space-y-3">
-              <p className="text-[0.8rem] font-medium uppercase tracking-[0.1em] text-white">Status</p>
+              <p className="text-[0.8rem] font-medium uppercase tracking-[0.1em] text-white">Programming Language</p>
               <div className="flex flex-wrap gap-2">
-                {statuses.map((status) => {
-                  const active = activeStatuses.includes(status);
+                {languages.map((language) => {
+                  const active = activeLanguages.includes(language);
+                  const colorClass = languageColorMap[language] ?? "bg-white/20 text-white";
                   return (
                     <button
-                      key={status}
+                      key={language}
                       type="button"
-                      onClick={() => toggleSelection(status, setActiveStatuses)}
-                      className={`flex items-center gap-2 border px-3 py-1 text-[0.65rem] uppercase tracking-[0.2em] transition duration-150 ease-terminal ${
-                        active
-                          ? "border-primary-400 bg-primary-500/10 text-white"
-                          : "border-primary-400/30 text-white hover:border-primary-400 hover:text-primary-100"
+                      onClick={() => toggleSelection(language, setActiveLanguages)}
+                      className={`border border-white/20 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] transition duration-150 ease-terminal ${colorClass} ${
+                        active ? "opacity-100 shadow-[0_0_0_1px_rgba(255,255,255,0.25)]" : "opacity-75 hover:opacity-100"
                       }`}
                     >
-                      <span
-                        className={`h-2.5 w-2.5 rounded-full ${statusIndicator[status]}`}
-                        aria-hidden
-                      />
-                      {status}
+                      {language}
                     </button>
                   );
                 })}

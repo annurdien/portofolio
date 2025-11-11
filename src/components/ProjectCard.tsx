@@ -129,7 +129,7 @@ export function ProjectCard({ project, density = "compact" }: ProjectCardProps) 
         </p>
 
         <div className={tagSpacingClass}>
-          <span className={`inline-flex items-center rounded-sm px-2 py-[0.35rem] text-[0.6rem] font-medium lowercase tracking-[0.12em] ring-1 ring-background-900/60 ${languageClassName}`}>
+          <span className={`inline-flex items-center px-2 py-[0.35rem] text-[0.6rem] font-medium lowercase tracking-[0.12em] ring-1 ring-background-900/60 ${languageClassName}`}>
             {language.toLowerCase()}
           </span>
         </div>
