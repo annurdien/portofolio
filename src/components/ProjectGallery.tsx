@@ -173,11 +173,8 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
       <div>
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-3">
-            <span className="text-xs uppercase tracking-[0.3em] text-primary-200/70">
-              Browse personal work
-            </span>
             <h1 className="text-3xl font-semibold text-primary-50 md:text-[2.6rem] md:leading-tight">
-              Projects I’ve been building
+              Projects I've been building
             </h1>
             <p className="max-w-2xl text-sm text-primary-200/75 md:text-base">
               Explore my personal project that I've been building over the years.
