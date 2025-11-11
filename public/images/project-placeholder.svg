@@ -1,0 +1,31 @@
+<svg width="720" height="432" viewBox="0 0 720 432" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="720" height="432" fill="#0A0D0A"/>
+  <g opacity="0.35" clip-path="url(#clip0)">
+    <path d="M0 36H720" stroke="#3E5B3E" stroke-width="0.8"/>
+    <path d="M0 72H720" stroke="#3E5B3E" stroke-width="0.8"/>
+    <path d="M0 108H720" stroke="#3E5B3E" stroke-width="0.8"/>
+    <path d="M0 144H720" stroke="#3E5B3E" stroke-width="0.8"/>
+    <path d="M0 180H720" stroke="#3E5B3E" stroke-width="0.8"/>
+    <path d="M0 216H720" stroke="#3E5B3E" stroke-width="0.8"/>
+    <path d="M0 252H720" stroke="#3E5B3E" stroke-width="0.8"/>
+    <path d="M0 288H720" stroke="#3E5B3E" stroke-width="0.8"/>
+    <path d="M0 324H720" stroke="#3E5B3E" stroke-width="0.8"/>
+    <path d="M0 360H720" stroke="#3E5B3E" stroke-width="0.8"/>
+    <path d="M0 396H720" stroke="#3E5B3E" stroke-width="0.8"/>
+    <path d="M60 0V432" stroke="#3E5B3E" stroke-width="0.8"/>
+    <path d="M120 0V432" stroke="#3E5B3E" stroke-width="0.8"/>
+    <path d="M180 0V432" stroke="#3E5B3E" stroke-width="0.8"/>
+    <path d="M240 0V432" stroke="#3E5B3E" stroke-width="0.8"/>
+    <path d="M300 0V432" stroke="#3E5B3E" stroke-width="0.8"/>
+    <path d="M360 0V432" stroke="#3E5B3E" stroke-width="0.8"/>
+    <path d="M420 0V432" stroke="#3E5B3E" stroke-width="0.8"/>
+    <path d="M480 0V432" stroke="#3E5B3E" stroke-width="0.8"/>
+    <path d="M540 0V432" stroke="#3E5B3E" stroke-width="0.8"/>
+    <path d="M600 0V432" stroke="#3E5B3E" stroke-width="0.8"/>
+    <path d="M660 0V432" stroke="#3E5B3E" stroke-width="0.8"/>
+  </g>
+  <rect x="36" y="32" width="648" height="368" stroke="#89F53C" stroke-width="0.8" stroke-dasharray="6 8"/>
+  <text x="50%" y="50%" fill="#89F53C" font-family="'IBM Plex Mono', monospace" font-size="42" font-weight="600" letter-spacing="0.8em" text-anchor="middle" dominant-baseline="middle">
+    PREVIEW
+  </text>
+</svg>

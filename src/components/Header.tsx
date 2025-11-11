@@ -3,29 +3,48 @@
 import Link from "next/link";
 import { useState } from "react";
 
-const navLinks = [{ label: "Projects", href: "#projects" }];
+const navLinks = [
+  { label: "Explore", href: "#projects", accent: true },
+  { label: "Featured", href: "#featured" },
+  { label: "Archive", href: "#projects" },
+  { label: "About", href: "#about" },
+];
 
 export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-slate-800/60 bg-slate-950/80 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-  <Link href="/" className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.3em] text-primary-200">
-          <span className="h-2 w-2 rounded-full bg-primary-400 shadow-glow" aria-hidden />
-          Rasyid
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-primary-400/40 bg-background-900">
+      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
+        <Link
+          href="/"
+          className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.45em] text-primary-200 transition duration-150 ease-terminal hover:text-primary-50"
+        >
+          <span className="flex h-3 w-3 items-center justify-center border border-primary-300 bg-background-900" aria-hidden>
+            <span className="h-1.5 w-1.5 animate-pulse bg-primary-300" />
+          </span>
+          Rasyid Trove
         </Link>
-  <nav className="hidden items-center gap-8 text-sm font-medium text-slate-300 md:flex">
+        <nav className="hidden items-center gap-6 text-[0.65rem] uppercase tracking-[0.32em] text-primary-200/70 lg:flex">
           {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="group relative transition hover:text-primary-200">
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`px-2 py-1 transition duration-150 ease-terminal ${
+                link.accent ? "text-primary-200" : "text-primary-200/70"
+              } hover:text-primary-50`}
+            >
               {link.label}
-              <span className="absolute inset-x-0 -bottom-1 h-px scale-x-0 bg-gradient-to-r from-primary-400 via-primary-200 to-primary-400 transition duration-200 group-hover:scale-x-100" />
             </Link>
           ))}
         </nav>
+        <div className="hidden items-center gap-5 text-[0.6rem] uppercase tracking-[0.32em] text-primary-200/60 lg:flex">
+          <span>Mode: Portfolio</span>
+          <span>Prompt: open source</span>
+        </div>
         <button
           type="button"
-          className="grid h-10 w-10 place-content-center rounded-full border border-slate-800 bg-slate-900/60 text-slate-200 transition hover:border-primary-400 hover:text-primary-200 md:hidden"
+          className="grid h-10 w-10 place-content-center border border-primary-400/40 bg-background-900 text-primary-200 transition duration-200 ease-terminal hover:border-primary-400 hover:text-primary-50 lg:hidden"
           onClick={() => setOpen((prev) => !prev)}
           aria-label="Toggle navigation"
         >
@@ -51,19 +70,27 @@ export function Header() {
         </button>
       </div>
       {open && (
-        <nav className="md:hidden">
-          <ul className="space-y-1 border-t border-slate-800/50 bg-slate-950/95 px-6 py-4 text-sm font-medium text-slate-200">
+        <nav className="lg:hidden">
+          <ul className="space-y-1 border-t border-primary-400/40 bg-background-900 px-6 py-4 text-sm font-medium uppercase tracking-[0.25em] text-primary-100">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="block rounded-xl px-3 py-2 transition hover:bg-primary-500/10 hover:text-primary-100"
+                  className={`block px-3 py-2 transition duration-150 ease-terminal hover:bg-primary-500/10 hover:text-primary-50 ${
+                    link.accent ? "text-primary-300" : ""
+                  }`}
                 >
                   {link.label}
                 </Link>
               </li>
             ))}
+            <li>
+              <div className="mt-3 grid gap-1 text-xs text-primary-200/70">
+                <span>Mode: Portfolio</span>
+                <span>Prompt: open source</span>
+              </div>
+            </li>
           </ul>
         </nav>
       )}

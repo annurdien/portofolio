@@ -35,61 +35,79 @@ export default function ProjectPage({ params }: ProjectPageProps) {
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-6 py-16">
-      <Link href="/" className="text-sm text-primary-200 hover:text-primary-100">
-        ← Back to all projects
-      </Link>
-      <header className="mt-6 space-y-3">
-        <p className="text-xs text-slate-400">
-          {project.year} · {project.status} · {project.category}
-        </p>
-        <h1 className="text-3xl font-semibold text-white md:text-4xl">{project.title}</h1>
-        <p className="text-base text-slate-300 md:text-lg">{project.summary}</p>
-      </header>
-      <section className="mt-8 space-y-6 text-sm text-slate-300 md:text-base">
-        <p>{project.description}</p>
-        {project.metrics && (
-          <p className="rounded-xl border border-slate-800 bg-slate-900/60 px-4 py-3 text-sm text-primary-200">
-            {project.metrics}
+    <div className="mx-auto max-w-4xl px-6 py-16 text-primary-100">
+      <div className="border border-primary-400/40 bg-background-900 p-8">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-[0.7rem] uppercase tracking-[0.3em] text-primary-200 transition duration-150 ease-terminal hover:text-primary-50"
+        >
+          ← Back to all projects
+        </Link>
+        <header className="mt-6 space-y-4 border-b border-primary-400/30 pb-6">
+          <p className="text-xs uppercase tracking-[0.3em] text-primary-200/60">
+            {project.year} · {project.status} · {project.category}
           </p>
-        )}
-      </section>
-      <section className="mt-10 grid gap-6 md:grid-cols-2">
-        <div>
-          <h2 className="text-sm font-semibold text-slate-200">Tech Stack</h2>
-          <ul className="mt-3 flex flex-wrap gap-2">
-            {project.tech.map((item) => (
-              <li key={item} className="rounded-full border border-slate-800 bg-slate-900 px-3 py-1 text-xs text-slate-300">
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h2 className="text-sm font-semibold text-slate-200">Links</h2>
-          <ul className="mt-3 space-y-2 text-sm text-primary-200">
-            {project.links.map((link) => (
-              <li key={link.href}>
-                <a href={link.href} target="_blank" rel="noreferrer" className="hover:text-primary-100">
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-      {project.tags && project.tags.length > 0 && (
-        <section className="mt-10">
-          <h2 className="text-sm font-semibold text-slate-200">Tags</h2>
-          <ul className="mt-3 flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <li key={tag} className="rounded-full border border-slate-800 bg-slate-900 px-3 py-1 text-xs text-slate-300">
-                {tag}
-              </li>
-            ))}
-          </ul>
+          <h1 className="text-3xl font-semibold uppercase tracking-[0.28em] text-primary-50 md:text-4xl">
+            {project.title}
+          </h1>
+          <p className="text-base text-primary-200/75 md:text-lg">{project.summary}</p>
+        </header>
+        <section className="mt-8 space-y-6 text-sm text-primary-200/80 md:text-base">
+          <p>{project.description}</p>
+          {project.metrics && (
+            <p className="border border-primary-400/40 bg-background-900 px-4 py-3 text-sm text-primary-200">
+              {project.metrics}
+            </p>
+          )}
         </section>
-      )}
+        <section className="mt-10 grid gap-6 md:grid-cols-2">
+          <div>
+            <h2 className="text-sm font-semibold uppercase tracking-[0.3em] text-primary-200/70">Tech Stack</h2>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {project.tech.map((item) => (
+                <li
+                  key={item}
+                  className="border border-primary-400/40 bg-background-900 px-3 py-1 text-[0.7rem] uppercase tracking-[0.24em] text-primary-200/70"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h2 className="text-sm font-semibold uppercase tracking-[0.3em] text-primary-200/70">Links</h2>
+            <ul className="mt-3 space-y-2 text-sm text-primary-200">
+              {project.links.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="border-b border-transparent pb-1 transition duration-150 ease-terminal hover:border-primary-400 hover:text-primary-50"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+        {project.tags && project.tags.length > 0 && (
+          <section className="mt-10">
+            <h2 className="text-sm font-semibold uppercase tracking-[0.3em] text-primary-200/70">Tags</h2>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {project.tags.map((tag) => (
+                <li
+                  key={tag}
+                  className="border border-primary-400/40 bg-background-900 px-3 py-1 text-[0.7rem] uppercase tracking-[0.24em] text-primary-200/70"
+                >
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+      </div>
     </div>
   );
 }

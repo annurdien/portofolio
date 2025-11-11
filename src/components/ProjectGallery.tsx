@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, type Dispatch, type SetStateAction } from "react";
 
 import { ProjectCard } from "@/components/ProjectCard";
 import type { Project } from "@/data/projects";
@@ -15,65 +15,343 @@ const sortProjects = (items: Project[]) =>
     return a.title.localeCompare(b.title);
   });
 
+const statusIndicator: Record<Project["status"], string> = {
+  Shipped: "bg-status-shipped",
+  "In Beta": "bg-status-beta",
+  Exploration: "bg-status-exploration",
+};
+
+const densityOptions = [
+  { label: "Compact", value: "compact" as const },
+  { label: "Comfortable", value: "comfortable" as const },
+  { label: "Large", value: "large" as const },
+];
+
+const densityGridMap: Record<(typeof densityOptions)[number]["value"], string> = {
+  compact: "md:grid-cols-2 xl:grid-cols-3",
+  comfortable: "md:grid-cols-2",
+  large: "md:grid-cols-1",
+};
+
 export function ProjectGallery({ projects }: ProjectGalleryProps) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [activeYears, setActiveYears] = useState<string[]>([]);
+  const [activeStatuses, setActiveStatuses] = useState<Project["status"][]>([]);
+  const [activeCategories, setActiveCategories] = useState<string[]>([]);
+  const [activeTags, setActiveTags] = useState<string[]>([]);
+  const [density, setDensity] = useState<(typeof densityOptions)[number]["value"]>("compact");
+
+  const years = useMemo(
+    () =>
+      Array.from(new Set(projects.map((project) => project.year.toString()))).sort(
+        (a, b) => Number(b) - Number(a)
+      ),
+    [projects]
+  );
+
+  const statuses = useMemo(
+    () =>
+      Array.from<Project["status"]>(
+        new Set(projects.map((project) => project.status))
+      ),
+    [projects]
+  );
+
+  const categories = useMemo(
+    () =>
+      Array.from(new Set(projects.map((project) => project.category))).sort(),
+    [projects]
+  );
+
+  const tags = useMemo(() => {
+    const tagSet = new Set<string>();
+    projects.forEach((project) => {
+      project.tags?.forEach((tag) => tagSet.add(tag));
+    });
+    return Array.from(tagSet).sort();
+  }, [projects]);
+
+  const normalizedSearch = useMemo(() => searchTerm.trim().toLowerCase(), [searchTerm]);
+
+  const toggleSelection = <T extends string>(
+    value: T,
+    setter: Dispatch<SetStateAction<T[]>>
+  ) => {
+    setter((previous) =>
+      previous.includes(value)
+        ? previous.filter((item) => item !== value)
+        : [...previous, value]
+    );
+  };
+
+  const clearFilters = () => {
+    setActiveYears([]);
+    setActiveStatuses([]);
+    setActiveCategories([]);
+    setActiveTags([]);
+  };
+
+  const hasActiveFilters =
+    activeYears.length +
+      activeStatuses.length +
+      activeCategories.length +
+      activeTags.length >
+    0;
 
   const filteredProjects = useMemo(() => {
-    const normalizedSearch = searchTerm.trim().toLowerCase();
-
-    if (!normalizedSearch) {
-      return sortProjects(projects);
-    }
-
     return sortProjects(projects).filter((project) => {
-      const haystack = [
-        project.title,
-        project.summary,
-        project.description,
-        project.category,
-        project.tags?.join(" ") ?? "",
-        project.tech.join(" "),
-      ]
-        .join(" ")
-        .toLowerCase();
+      if (normalizedSearch) {
+        const haystack = [
+          project.title,
+          project.summary,
+          project.description,
+          project.category,
+          project.tags?.join(" ") ?? "",
+          project.tech.join(" "),
+        ]
+          .join(" ")
+          .toLowerCase();
 
-      return haystack.includes(normalizedSearch);
+        if (!haystack.includes(normalizedSearch)) {
+          return false;
+        }
+      }
+
+      if (activeYears.length && !activeYears.includes(project.year.toString())) {
+        return false;
+      }
+
+      if (activeStatuses.length && !activeStatuses.includes(project.status)) {
+        return false;
+      }
+
+      if (activeCategories.length && !activeCategories.includes(project.category)) {
+        return false;
+      }
+
+      if (activeTags.length) {
+        const projectTags = project.tags ?? [];
+        const tagHit = projectTags.some((tag) => activeTags.includes(tag));
+        if (!tagHit) {
+          return false;
+        }
+      }
+
+      return true;
     });
-  }, [projects, searchTerm]);
+  }, [
+    projects,
+    normalizedSearch,
+    activeYears,
+    activeStatuses,
+    activeCategories,
+    activeTags,
+  ]);
 
   return (
-    <section id="projects" className="relative mx-auto max-w-6xl px-6 py-16">
-      <div className="flex flex-col gap-4">
-        <h1 className="text-3xl font-semibold text-white md:text-4xl">Projects</h1>
-        <p className="text-sm text-slate-300 md:text-base">
-          Use the search box to quickly filter projects by title, tech, or keywords. Click a card to view full details.
-        </p>
-        <div className="flex w-full flex-col gap-2 md:w-96">
-          <label htmlFor="project-search" className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
-            Search projects
-          </label>
-          <input
-            id="project-search"
-            type="search"
-            value={searchTerm}
-            onChange={(event) => setSearchTerm(event.target.value)}
-            placeholder="Search titles, tech, or tags"
-            className="w-full rounded-xl border border-slate-800 bg-slate-900 px-4 py-3 text-sm text-slate-100 outline-none transition focus:border-primary-400/70 focus:ring-2 focus:ring-primary-500/30"
-          />
+    <section id="projects" className="relative mx-auto max-w-6xl px-6 pb-20">
+      <div className="border-b border-primary-400/30 pb-10">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+          <div className="space-y-3">
+            <span className="text-xs uppercase tracking-[0.45em] text-primary-200/70">
+              Explore terminal tools
+            </span>
+            <h1 className="text-3xl font-semibold text-primary-50 md:text-[2.6rem] md:leading-tight">
+              Curated project trove
+            </h1>
+            <p className="max-w-2xl text-sm text-primary-200/75 md:text-base">
+              Browsing {projects.length} shipped experiments, platforms, and production builds.
+              Dial in a stack, status, or release year with the filters to the left.
+            </p>
+          </div>
+          <div className="flex flex-col gap-2 text-xs uppercase tracking-[0.35em] text-primary-200/60">
+            <span>Results · {filteredProjects.length.toString().padStart(2, "0")}/{projects.length.toString().padStart(2, "0")}</span>
+            <span>Filters active · {hasActiveFilters ? "Yes" : "No"}</span>
+          </div>
+        </div>
+        <div className="mt-6 flex flex-col gap-4 border-t border-primary-400/20 pt-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex w-full flex-col gap-3 lg:max-w-md">
+            <label
+              htmlFor="project-search"
+              className="text-[0.65rem] uppercase tracking-[0.35em] text-primary-200/60"
+            >
+              Search prompt
+            </label>
+            <div className="relative">
+              <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-xs font-semibold text-primary-200/70">
+                &gt;
+              </span>
+              <input
+                id="project-search"
+                type="search"
+                value={searchTerm}
+                onChange={(event) => setSearchTerm(event.target.value)}
+                placeholder="Type stack, tag, or project keyword"
+                className="w-full border border-primary-400/40 bg-background-900 py-3 pl-9 pr-4 text-sm text-primary-50 outline-none transition duration-150 ease-terminal focus:border-primary-400"
+              />
+            </div>
+          </div>
+          <div className="flex flex-col gap-2 text-[0.6rem] uppercase tracking-[0.35em] text-primary-200/60">
+            <span>View</span>
+            <div className="inline-flex border border-primary-400/40 bg-background-900">
+              {densityOptions.map((option) => {
+                const isActive = option.value === density;
+                return (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => setDensity(option.value)}
+                    className={`px-4 py-2 text-[0.65rem] font-semibold transition duration-200 ease-terminal ${
+                      isActive
+                        ? "bg-primary-500 text-background-950"
+                        : "text-primary-200/70 hover:text-primary-100"
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
 
-      {filteredProjects.length === 0 ? (
-        <div className="mt-16 rounded-2xl border border-slate-800/60 bg-slate-900/60 p-12 text-center text-sm text-slate-400">
-          No projects match that search yet.
+      <div className="mt-12 grid gap-10 lg:grid-cols-[18rem,1fr]">
+        <aside className="space-y-8 border border-primary-400/40 bg-background-900 p-6">
+            <div className="flex items-center justify-between text-[0.65rem] uppercase tracking-[0.35em] text-primary-200/70">
+              <span>Filters</span>
+              <button
+                type="button"
+                onClick={clearFilters}
+                disabled={!hasActiveFilters}
+                className="border border-transparent px-3 py-1 text-primary-200 transition duration-150 ease-terminal hover:border-primary-400 hover:text-primary-50 disabled:cursor-not-allowed disabled:text-primary-200/40"
+              >
+                Clear All
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              <p className="text-[0.6rem] uppercase tracking-[0.35em] text-primary-200/50">Year</p>
+              <div className="flex flex-wrap gap-2">
+                {years.map((year) => {
+                  const active = activeYears.includes(year);
+                  return (
+                    <button
+                      key={year}
+                      type="button"
+                      onClick={() => toggleSelection(year, setActiveYears)}
+                      className={`border px-3 py-1 text-[0.65rem] uppercase tracking-[0.28em] transition duration-150 ease-terminal ${
+                        active
+                          ? "border-primary-400 bg-primary-500/10 text-primary-100"
+                          : "border-primary-400/30 text-primary-200/70 hover:border-primary-400 hover:text-primary-100"
+                      }`}
+                    >
+                      {year}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <p className="text-[0.6rem] uppercase tracking-[0.35em] text-primary-200/50">Status</p>
+              <div className="flex flex-wrap gap-2">
+                {statuses.map((status) => {
+                  const active = activeStatuses.includes(status);
+                  return (
+                    <button
+                      key={status}
+                      type="button"
+                      onClick={() => toggleSelection(status, setActiveStatuses)}
+                      className={`flex items-center gap-2 border px-3 py-1 text-[0.65rem] uppercase tracking-[0.28em] transition duration-150 ease-terminal ${
+                        active
+                          ? "border-primary-400 bg-primary-500/10 text-primary-100"
+                          : "border-primary-400/30 text-primary-200/70 hover:border-primary-400 hover:text-primary-100"
+                      }`}
+                    >
+                      <span
+                        className={`h-2.5 w-2.5 rounded-full ${statusIndicator[status]}`}
+                        aria-hidden
+                      />
+                      {status}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <p className="text-[0.6rem] uppercase tracking-[0.35em] text-primary-200/50">Category</p>
+              <div className="flex flex-col gap-2">
+                {categories.map((category) => {
+                  const active = activeCategories.includes(category);
+                  return (
+                    <button
+                      key={category}
+                      type="button"
+                      onClick={() => toggleSelection(category, setActiveCategories)}
+                      className={`flex items-center justify-between border px-3 py-2 text-[0.65rem] uppercase tracking-[0.28em] transition duration-150 ease-terminal ${
+                        active
+                          ? "border-primary-400 bg-primary-500/10 text-primary-100"
+                          : "border-primary-400/30 text-primary-200/70 hover:border-primary-400 hover:text-primary-100"
+                      }`}
+                    >
+                      {category}
+                      <span className="text-[0.55rem] text-primary-200/50">
+                        {projects.filter((project) => project.category === category).length}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {tags.length > 0 && (
+              <div className="space-y-3">
+                <p className="text-[0.6rem] uppercase tracking-[0.35em] text-primary-200/50">Tags</p>
+                <div className="flex flex-wrap gap-2">
+                  {tags.map((tag) => {
+                    const active = activeTags.includes(tag);
+                    return (
+                      <button
+                        key={tag}
+                        type="button"
+                        onClick={() => toggleSelection(tag, setActiveTags)}
+                        className={`border px-3 py-1 text-[0.65rem] uppercase tracking-[0.28em] transition duration-150 ease-terminal ${
+                          active
+                            ? "border-primary-400 bg-primary-500/15 text-primary-50"
+                            : "border-primary-400/30 text-primary-200/70 hover:border-primary-400 hover:text-primary-100"
+                        }`}
+                      >
+                        #{tag}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </aside>
+
+        <div className="space-y-10">
+          {filteredProjects.length === 0 ? (
+            <div className="border border-primary-400/40 bg-background-900 p-12 text-center text-sm text-primary-200/70">
+              No projects match that query yet.
+            </div>
+          ) : (
+            <div className={`grid gap-6 ${densityGridMap[density]}`}>
+              {filteredProjects.map((project) => (
+                <ProjectCard key={project.slug} project={project} density={density} />
+              ))}
+            </div>
+          )}
+          <div className="flex flex-col items-center justify-between gap-3 border-t border-primary-400/40 pt-6 text-[0.65rem] uppercase tracking-[0.35em] text-primary-200/60 sm:flex-row">
+            <span>
+              Showing {filteredProjects.length} of {projects.length} projects
+            </span>
+            <span>Navigate ↑ ↓ · Enter to open</span>
+          </div>
         </div>
-      ) : (
-        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {filteredProjects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
-        </div>
-      )}
+      </div>
     </section>
   );
 }

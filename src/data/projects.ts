@@ -16,6 +16,7 @@ export type Project = {
   featured?: boolean;
   metrics?: string;
   tags?: string[];
+  image?: string;
 };
 
 export const projects: Project[] = [
@@ -35,7 +36,8 @@ export const projects: Project[] = [
     status: "Shipped",
     featured: true,
     metrics: "12k+ itineraries planned in launch quarter",
-    tags: ["AI", "Product Strategy"]
+    tags: ["CLI"],
+    image: "/images/project-placeholder.svg"
   },
   {
     slug: "aurora-ui",
@@ -53,7 +55,8 @@ export const projects: Project[] = [
     status: "Shipped",
     featured: true,
     metrics: "Cut handoff time by 46% across three product teams",
-    tags: ["Design Systems", "Front-end"]
+    tags: ["CLI"],
+    image: "/images/project-placeholder.svg"
   },
   {
     slug: "ledger-lite",
@@ -70,7 +73,7 @@ export const projects: Project[] = [
     year: 2022,
     status: "Shipped",
     metrics: "Processes $4.2M in invoices each month",
-    tags: ["Fintech", "SaaS"]
+    tags: ["CLI"]
   },
   {
     slug: "orbit-ops",
@@ -83,12 +86,13 @@ export const projects: Project[] = [
       { label: "Case Study", href: "https://example.com/orbit-ops" },
       { label: "GitHub", href: "https://github.com/username/orbit-ops" }
     ],
-    category: "Operations Platform",
+    category: "Tools & Utilities",
     year: 2024,
     status: "Shipped",
     featured: true,
     metrics: "Reduced on-call alert noise by 63%",
-    tags: ["Platform", "Automation"]
+    tags: ["CLI"],
+    image: "/images/project-placeholder.svg"
   },
   {
     slug: "drift-metrics",
@@ -101,11 +105,11 @@ export const projects: Project[] = [
       { label: "Live", href: "https://example.com/drift-metrics" },
       { label: "GitHub", href: "https://github.com/username/drift-metrics" }
     ],
-    category: "Analytics",
+    category: "Tools & Utilities",
     year: 2021,
     status: "Shipped",
     metrics: "Powers experiments for 18 product squads",
-    tags: ["Analytics", "Experimentation"]
+    tags: ["CLI"]
   },
   {
     slug: "canvas-cast",
@@ -118,11 +122,11 @@ export const projects: Project[] = [
       { label: "Live", href: "https://example.com/canvas-cast" },
       { label: "GitHub", href: "https://github.com/username/canvas-cast" }
     ],
-    category: "Creative Tools",
+    category: "Tools & Utilities",
     year: 2023,
     status: "In Beta",
     metrics: "3.1k collaborative storyboards built to date",
-    tags: ["Real-time", "Education"]
+    tags: ["CLI"]
   },
   {
     slug: "pulse-note",
@@ -135,11 +139,11 @@ export const projects: Project[] = [
       { label: "Live", href: "https://example.com/pulse-note" },
       { label: "GitHub", href: "https://github.com/username/pulse-note" }
     ],
-    category: "Research Ops",
+    category: "Tools & Utilities",
     year: 2022,
     status: "Shipped",
     metrics: "Cut research turnaround from 10 days to 4",
-    tags: ["UX Research", "AI"]
+    tags: ["CLI"]
   },
   {
     slug: "atlas-query",
@@ -152,7 +156,7 @@ export const projects: Project[] = [
       { label: "Case Study", href: "https://example.com/atlas-query" },
       { label: "GitHub", href: "https://github.com/username/atlas-query" }
     ],
-    category: "Data Platform",
+    category: "Tools & Utilities",
     year: 2021,
     status: "Shipped",
     metrics: "Serves 500+ curated datasets with SLA tracking",
@@ -169,7 +173,7 @@ export const projects: Project[] = [
       { label: "Live", href: "https://example.com/nimbus-guard" },
       { label: "GitHub", href: "https://github.com/username/nimbus-guard" }
     ],
-    category: "Security",
+    category: "Tools & Utilities",
     year: 2020,
     status: "Shipped",
     metrics: "Closed compliance gaps 70% faster for enterprise teams",

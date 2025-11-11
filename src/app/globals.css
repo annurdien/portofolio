@@ -7,10 +7,20 @@
 }
 
 body {
+  position: relative;
   min-height: 100vh;
-  background: radial-gradient(circle at top left, rgba(124, 58, 237, 0.2), transparent 55%),
-    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.25), transparent 50%),
-    #020617;
+  background-color: #040405;
+  background-image:
+    linear-gradient(rgba(56, 70, 56, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 70, 56, 0.12) 1px, transparent 1px);
+  background-size:
+    48px 48px,
+    48px 48px;
+  background-position:
+    center,
+    center;
+  background-attachment: fixed;
+  letter-spacing: 0.025em;
 }
 
 a {
@@ -20,6 +30,31 @@ a {
 
 @layer base {
   ::selection {
-    background-color: rgba(99, 102, 241, 0.5);
+    background-color: rgba(165, 255, 59, 0.55);
+    color: #050507;
   }
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(20, 24, 20, 0.72), rgba(7, 9, 8, 0.92));
+  z-index: 0;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABM0lEQVQ4T5WTMUoDQRBFvxkULgSFiAQlJRCrJWKiWJgY6u9B9j6ARbexAYmBiIiIhYWQiIQFtLwCwmvSGGouLk3syezk5n5lbk0Ap15rWbm8BlAz0zs8nFav1OeAA2BYAUQC6ovtAVQcQsb8Jewjq8BWa4nkeUKbFaoI8pOtmanjcLru0H3gAj8qS1fdFXQf7dI0xGU1AoZVRmW8FEiovuP0K6D7QXtR23LPesBur4FDTNoLoR56z6wOUhkql0KukvMOskrdwGxX7c6Oe8PIU8K3BJST4hsv7i0SSjkK7utaA8jNndCq788QYC2nr6xLLcb0VPTvh5AEi0N4gDsKygwi51XrqEMwS0TLcIyhF+c0t7ZlFc/1ibvkxHUhteVin+LoAZnEetrPYAbmF0S049B610AAAAAElFTkSuQmCC");
+  opacity: 0.04;
+  mix-blend-mode: screen;
+  z-index: -1;
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
 }
