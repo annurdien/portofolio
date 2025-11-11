@@ -7,7 +7,7 @@ export default function HomePage() {
   return (
     <div className="relative min-h-screen text-primary-100">
       <Header />
-      <main className="pt-24 pb-32">
+      <main className="pt-24 pb-20">
         <ProjectGallery projects={projects} />
       </main>
       <Footer />

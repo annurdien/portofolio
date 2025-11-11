@@ -22,7 +22,7 @@ const densityOptions = [
 ];
 
 const densityGridMap: Record<(typeof densityOptions)[number]["value"], string> = {
-  compact: "md:grid-cols-2 xl:grid-cols-3",
+  compact: "md:grid-cols-2 xl:grid-cols-4",
   comfortable: "md:grid-cols-2",
   large: "md:grid-cols-1",
 };
@@ -184,7 +184,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
   }, [currentPage, totalPages]);
 
   return (
-    <section id="projects" className="relative mx-auto max-w-6xl px-6 pb-20">
+    <section id="projects" className="relative mx-auto max-w-[85rem] px-6 pb-20">
       <div>
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-3">
