@@ -192,7 +192,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
               Explore my projects
             </h1>
             <p className="max-w-2xl text-sm text-primary-200/75 md:text-base">
-              Explore my personal project that I've been building over the years.
+              Explore my personal project that I&apos;ve been building over the years.
             </p>
           </div>
           <div className="flex flex-col gap-2 text-xs uppercase tracking-[0.25em] text-white">
