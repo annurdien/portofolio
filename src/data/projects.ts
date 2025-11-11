@@ -21,162 +21,344 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "neural-voyager",
-    title: "Neural Voyager",
-    summary: "AI-powered travel planner that crafts personalized itineraries in seconds.",
+    slug: "swift-inspector",
+    title: "Swift Inspector",
+    summary: "Compiler stage output inspector for Swift programming language",
     description:
-      "Combines GPT-powered recommendations with real-time flight and accommodation data to generate travel plans tailored to budget, pace, and interests.",
-  tech: ["TypeScript"],
-    links: [
-      { label: "Live", href: "https://example.com/neural-voyager" },
-      { label: "GitHub", href: "https://github.com/username/neural-voyager" }
-    ],
-    category: "AI Product",
-    year: 2024,
-    status: "Shipped",
-    featured: true,
-    metrics: "12k+ itineraries planned in launch quarter",
-    tags: ["CLI"],
-    image: "/images/project-placeholder.svg"
-  },
-  {
-    slug: "aurora-ui",
-    title: "Aurora UI",
-    summary: "Design system with token-based theming for rapid product teams.",
-    description:
-      "Delivers composable UI primitives and a design token pipeline that syncs Figma, Storybook, and production code in one workflow.",
-  tech: ["TypeScript"],
-    links: [
-      { label: "Live", href: "https://example.com/aurora-ui" },
-      { label: "GitHub", href: "https://github.com/username/aurora-ui" }
-    ],
-    category: "Design Systems",
-    year: 2023,
-    status: "Shipped",
-    featured: true,
-    metrics: "Cut handoff time by 46% across three product teams",
-    tags: ["CLI"],
-    image: "/images/project-placeholder.svg"
-  },
-  {
-    slug: "ledger-lite",
-    title: "Ledger Lite",
-    summary: "Minimal bookkeeping SaaS keeping solopreneurs audit-ready.",
-    description:
-      "Automates invoice parsing, real-time cash flow dashboards, and quarterly tax exports with bank-level security integrations.",
-  tech: ["TypeScript"],
-    links: [
-      { label: "Live", href: "https://example.com/ledger-lite" },
-      { label: "GitHub", href: "https://github.com/username/ledger-lite" }
-    ],
-    category: "Fintech SaaS",
-    year: 2022,
-    status: "Shipped",
-    metrics: "Processes $4.2M in invoices each month",
-    tags: ["CLI"]
-  },
-  {
-    slug: "orbit-ops",
-    title: "Orbit Ops",
-    summary: "Mission control dashboard for scaling operations teams.",
-    description:
-      "Unified incident response, staffing insights, and SLAs into a single cockpit with command palettes and role-based automations.",
-  tech: ["TypeScript"],
-    links: [
-      { label: "Case Study", href: "https://example.com/orbit-ops" },
-      { label: "GitHub", href: "https://github.com/username/orbit-ops" }
-    ],
-    category: "Tools & Utilities",
-    year: 2024,
-    status: "Shipped",
-    featured: true,
-    metrics: "Reduced on-call alert noise by 63%",
-    tags: ["CLI"],
-    image: "/images/project-placeholder.svg"
-  },
-  {
-    slug: "drift-metrics",
-    title: "Drift Metrics",
-    summary: "Product analytics suite built for live experimentation.",
-    description:
-      "Event pipelines, cohort analysis, and release impact snapshots with plug-and-play SDKs for web and mobile.",
+      "A Web app that allows Swift programmers to visualize and analyze the output of different compiler stages, aiding in debugging and optimization of Swift code.",
   tech: ["Python"],
     links: [
-      { label: "Live", href: "https://example.com/drift-metrics" },
-      { label: "GitHub", href: "https://github.com/username/drift-metrics" }
+      { label: "Live", href: "https://swift.rasyid.codes" },
+      { label: "GitHub", href: "https://github.com/annurdien/swift-inspector" }
     ],
-    category: "Tools & Utilities",
-    year: 2021,
+    category: "Tools",
+    year: 2025,
     status: "Shipped",
-    metrics: "Powers experiments for 18 product squads",
-    tags: ["CLI"]
+    featured: true,
+    tags: ["Swift", "Compiler"],
+    image: "/images/project-placeholder.svg"
   },
   {
-    slug: "canvas-cast",
-    title: "Canvas Cast",
-    summary: "Interactive storytelling tool for educators and creators.",
+    slug: "bcc",
+    title: "bcc",
+    summary: "Bakpia C Compiler",
     description:
-      "Drag-and-drop scene builder with multiplayer editing, asset libraries, and adaptive streaming outputs.",
+      "My implementation of C compiler written in Swift",
+  tech: ["Swift"],
+    links: [
+      { label: "GitHub", href: "https://github.com/annurdien/bcc" }
+    ],
+    category: "Compiler",
+    year: 2025,
+    status: "Shipped",
+    featured: false,
+    tags: ["Swift", "Compiler"],
+    image: "/images/project-placeholder.svg"
+  },
+  {
+    slug: "chip8-emulator",
+    title: "chip8",
+    summary: "Emulator for CHIP-8 system",
+    description:
+      "My implementation of CHIP-8 emulator written in C++ language, this is from article series Writing chip-8 emulator in C++",
+  tech: ["C++"],
+    links: [
+      { label: "GitHub", href: "https://github.com/annurdien/chip8" }
+    ],
+    category: "Emulator",
+    year: 2025,
+    status: "Shipped",
+    featured: false,
+    tags: ["C++", "Emulator"],
+    image: "/images/project-placeholder.svg"
+  },
+  {
+    slug: "toasty",
+    title: "Toasty",
+    summary: "Toast made easy in SwiftUI",
+    description:
+      "A lightweight Swift package that simplifies the process of displaying toast notifications in SwiftUI applications",
+  tech: ["Swift"],
+    links: [
+      { label: "GitHub", href: "https://github.com/annurdien/Toasty" }
+    ],
+    category: "Library",
+    year: 2025,
+    status: "Shipped",
+    featured: false,
+    tags: ["Swift", "SwiftUI"],
+    image: "/images/project-placeholder.svg"
+  },
+  {
+    slug: "import-formatter",
+    title: "Import Formatter",
+    summary: "A CLI tool to format import statements in Swift files",
+    description:
+      "A command-line tool that automatically formats and organizes import statements in Swift source files to enhance code readability and maintainability.",
+  tech: ["Swift"],
+    links: [
+      { label: "GitHub", href: "https://github.com/annurdien/ImportFormatter" }
+    ],
+    category: "Tools",
+    year: 2025,
+    status: "Shipped",
+    featured: false,
+    tags: ["Swift", "Tools"],
+    image: "/images/project-placeholder.svg"
+  },
+  {
+    slug: "flutter-clean-architecture",
+    title: "Flutter Clean Architecture",
+    summary: "A starter template for Flutter apps using Clean Architecture",
+    description:
+      "A boilerplate project that demonstrates the implementation of Clean Architecture principles in Flutter applications, promoting maintainable and scalable codebases.",
+  tech: ["Flutter"],
+    links: [
+      { label: "GitHub", href: "https://github.com/annurdien/flutter_clean_architecture" }
+    ],
+    category: "Library",
+    year: 2025,
+    status: "Shipped",
+    featured: false,
+    tags: ["Flutter", "Clean Architecture"],
+    image: "/images/project-placeholder.svg"
+  },
+  {
+    slug: "populate",
+    title: "populate",
+    summary: "Swift macro to populate data models with sample data",
+    description:
+      "A Swift macro that automatically generates sample data for data models, facilitating easier testing and prototyping during development.",
+  tech: ["Swift"],
+    links: [
+      { label: "GitHub", href: "https://github.com/annurdien/populate" }
+    ],
+    category: "Library",
+    year: 2025,
+    status: "Shipped",
+    featured: false,
+    tags: ["Swift", "Macro"],
+    image: "/images/project-placeholder.svg"
+  },
+  {
+    slug: "sim-cli",
+    title: "sim cli",
+    summary: "CLI tool to manage iOS and Android simulators",
+    description:
+      "A command-line interface tool that simplifies the management of iOS and Android simulators, allowing developers to easily start, stop, and configure simulators from the terminal.",
+  tech: ["Go"],
+    links: [
+      { label: "GitHub", href: "https://github.com/annurdien/sim-cli" }
+    ],
+    category: "Tools",
+    year: 2025,
+    status: "Shipped",
+    featured: false,
+    tags: ["go", "CLI"],
+    image: "/images/project-placeholder.svg"
+  },
+  {
+    slug: "sigma",
+    title: "sigma",
+    summary: "Web app to generate or convert dataset for LLM fine tuning",
+    description:
+      "A web application that facilitates the generation and conversion of datasets specifically designed for fine-tuning large language models (LLMs), streamlining the preparation process for machine learning tasks.",
   tech: ["TypeScript"],
     links: [
-      { label: "Live", href: "https://example.com/canvas-cast" },
-      { label: "GitHub", href: "https://github.com/username/canvas-cast" }
+      { label: "GitHub", href: "https://github.com/annurdien/sigma" }
     ],
-    category: "Tools & Utilities",
-    year: 2023,
-    status: "In Beta",
-    metrics: "3.1k collaborative storyboards built to date",
-    tags: ["CLI"]
-  },
-  {
-    slug: "pulse-note",
-    title: "Pulse Note",
-    summary: "Research repository connecting user insights to product roadmaps.",
-    description:
-      "Supports transcripts, highlight reels, and stakeholder newsletters with automated tagging and AI-assisted synthesis.",
-  tech: ["Python"],
-    links: [
-      { label: "Live", href: "https://example.com/pulse-note" },
-      { label: "GitHub", href: "https://github.com/username/pulse-note" }
-    ],
-    category: "Tools & Utilities",
-    year: 2022,
+    category: "Tools",
+    year: 2025,
     status: "Shipped",
-    metrics: "Cut research turnaround from 10 days to 4",
-    tags: ["CLI"]
+    featured: false,
+    tags: ["LLM", "Web App"],
+    image: "/images/project-placeholder.svg"
   },
   {
-    slug: "atlas-query",
-    title: "Atlas Query",
-    summary: "Self-serve data portal with contract testing and lineage maps.",
+    slug: "http-rust",
+    title: "http rust",
+    summary: "Http 1.0 implementation in Rust",
     description:
-      "Empowered analysts to ship governed datasets faster with column-level lineage, drift alerts, and documentation hubs.",
-  tech: ["TypeScript"],
-    links: [
-      { label: "Case Study", href: "https://example.com/atlas-query" },
-      { label: "GitHub", href: "https://github.com/username/atlas-query" }
-    ],
-    category: "Tools & Utilities",
-    year: 2021,
-    status: "Shipped",
-    metrics: "Serves 500+ curated datasets with SLA tracking",
-    tags: ["Data", "Governance"]
-  },
-  {
-    slug: "nimbus-guard",
-    title: "Nimbus Guard",
-    summary: "Cloud security agent delivering posture insights in minutes.",
-    description:
-      "Surface misconfigurations, drift, and compliance gaps across multi-cloud environments with real-time remediation guides.",
+      "A simple implementation of HTTP 1.0 protocol in Rust programming language, demonstrating the fundamentals of handling HTTP requests and responses.",
   tech: ["Rust"],
     links: [
-      { label: "Live", href: "https://example.com/nimbus-guard" },
-      { label: "GitHub", href: "https://github.com/username/nimbus-guard" }
+      { label: "GitHub", href: "https://github.com/annurdien/http-rust" }
     ],
-    category: "Tools & Utilities",
-    year: 2020,
+    category: "Library",
+    year: 2025,
     status: "Shipped",
-    metrics: "Closed compliance gaps 70% faster for enterprise teams",
-    tags: ["Security", "DevOps"]
-  }
+    featured: false,
+    tags: ["Rust", "Library"],
+    image: "/images/project-placeholder.svg"
+  },
+  {
+    slug: "wing",
+    title: "Wing",
+    summary: "Collection of native Swift extensions and property wrappers",
+    description:
+      "A collection of native Swift extensions and property wrappers that enhance the functionality and usability of Swift programming language features.",
+  tech: ["Swift"],
+    links: [
+      { label: "GitHub", href: "https://github.com/annurdien/Wing" }
+    ],
+    category: "Library",
+    year: 2025,
+    status: "Shipped",
+    featured: false,
+    tags: ["Swift", "Library"],
+    image: "/images/project-placeholder.svg"
+  },
+  {
+    slug: "what-snap",
+    title: "WhatSnap",
+    summary: "iOS app to scan phone number and start WhatsApp chat",
+    description:
+      "An iOS application that enables users to quickly scan a phone number and initiate a WhatsApp chat without the need to save the contact in their address book.",
+  tech: ["Swift"],
+    links: [
+      { label: "GitHub", href: "https://github.com/annurdien/WhatSnap" }
+    ],
+    category: "iOS App",
+    year: 2025,
+    status: "Shipped",
+    featured: false,
+    tags: ["Swift", "iOS App"],
+    image: "/images/project-placeholder.svg"
+  },
+  {
+    slug: "pes-joke",
+    title: "Pes Joke",
+    summary: "iOS app to give you dad jokes of the day",
+    description:
+      "An iOS application that delivers a daily dose of dad jokes to users, providing light-hearted humor and entertainment.",
+  tech: ["Swift"],
+    links: [
+      { label: "GitHub", href: "https://github.com/annurdien/pes-joke" }
+    ],
+    category: "iOS App",
+    year: 2025,
+    status: "Shipped",
+    featured: false,
+    tags: ["Swift", "iOS App"],
+    image: "/images/project-placeholder.svg"
+  },
+  {
+    slug: "mrs-server",
+    title: "mrs",
+    summary: "Home automation server written in Rust",
+    description:
+      "A home automation server built using Rust programming language, designed to manage and control various smart home devices and systems efficiently and securely.",
+  tech: ["Rust"],
+    links: [
+      { label: "GitHub", href: "https://github.com/annurdien/mrs-server" }
+    ],
+    category: "Tools",
+    year: 2025,
+    status: "Shipped",
+    featured: false,
+    tags: ["Rust", "Tools"],
+    image: "/images/project-placeholder.svg"
+  },
+  {
+    slug: "cloudflare-r2",
+    title: "cloudflare r2",
+    summary: "Cloudflare R2 client library in Typescript",
+    description:
+      "A TypeScript client library for interacting with Cloudflare R2, enabling developers to easily integrate R2 storage capabilities into their applications.",
+  tech: ["TypeScript"],
+    links: [
+      { label: "GitHub", href: "https://github.com/annurdien/cloudflare-r2-with-stream" }
+    ],
+    category: "Library",
+    year: 2025,
+    status: "Shipped",
+    featured: false,
+    tags: ["TypeScript", "Library"],
+    image: "/images/project-placeholder.svg"
+  },
+  {
+    slug: "idlix-api",
+    title: "Idlix API",
+    summary: "Idlix streaming scraper API in TypeScript",
+    description:
+      "A TypeScript API that scrapes streaming data from Idlix, providing developers with programmatic access to Idlix's streaming content for integration into their applications.",
+  tech: ["TypeScript"],
+    links: [
+      { label: "GitHub", href: "https://github.com/annurdien/IDLIX-API" }
+    ],
+    category: "Library",
+    year: 2025,
+    status: "Shipped",
+    featured: false,
+    tags: ["TypeScript", "Library"],
+    image: "/images/project-placeholder.svg"
+  },
+  {
+    slug: "karat",
+    title: "karat",
+    summary: "Rust programming language, in Indonesian",
+    description:
+      "Meme project, Rust programming syntax in Indonesian language",
+  tech: ["Rust"],
+    links: [
+      { label: "GitHub", href: "https://github.com/annurdien/karat" }
+    ],
+    category: "Compiler",
+    year: 2025,
+    status: "Shipped",
+    featured: false,
+    tags: ["Rust", "Compiler"],
+    image: "/images/project-placeholder.svg"
+  },
+  {
+    slug: "steam-idler",
+    title: "steam idler",
+    summary: "Steam game idler bot",
+    description:
+      "A bot that idles Steam games to accumulate playtime or achieve other in game benefits automatically.",
+  tech: ["TypeScript"],
+    links: [
+      { label: "GitHub", href: "https://github.com/annurdien/steam-idler" }
+    ],
+    category: "Tools",
+    year: 2025,
+    status: "Shipped",
+    featured: false,
+    tags: ["TypeScript", "Tools"],
+    image: "/images/project-placeholder.svg"
+  },
+  {
+    slug: "git-cheater",
+    title: "git cheater",
+    summary: "Beautify git cendol in your github profile",
+    description:
+      "A tool that helps you to beautify your git cendol in your github profile by creating fake commits to increase your github contribution graph",
+  tech: ["TypeScript"],
+    links: [
+      { label: "GitHub", href: "https://github.com/annurdien/git-cheater" }
+    ],
+    category: "Tools",
+    year: 2025,
+    status: "Shipped",
+    featured: false,
+    tags: ["TypeScript", "Tools"],
+    image: "/images/project-placeholder.svg"
+  },
+  {
+    slug: "mpilot",
+    title: "M Pliot",
+    summary: "Intuitive and powerful ground control station (GCS) for UAVs.",
+    description:
+      "M Pliot is a ground control station (GCS) software designed for operating and managing unmanned aerial vehicles (UAVs). It provides an intuitive interface and powerful features to enhance the UAV piloting experience.",
+  tech: ["C++"],
+    links: [
+      { label: "GitHub", href: "https://github.com/annurdien/MPILOT" }
+    ],
+    category: "Tools",
+    year: 2025,
+    status: "Shipped",
+    featured: false,
+    tags: ["C++", "Tools"],
+    image: "/images/project-placeholder.svg"
+  },
 ];

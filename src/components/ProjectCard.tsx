@@ -118,12 +118,12 @@ export function ProjectCard({ project, density = "compact" }: ProjectCardProps) 
           )}
         </div>
 
-        <h2 className="text-m font-semibold uppercase tracking-[0.32em] text-yellow-300 transition-colors duration-200 group-hover:text-white">
+        <h2 className="text-m font-semibold tracking-[0.15em] text-yellow-300 transition-colors duration-200 group-hover:text-white">
           {project.title}
         </h2>
         <p
           className={`${textSpacingClass} text-[0.85rem] leading-5 text-white/80`}
-          style={{ display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}
+          style={{ display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}
         >
           {project.summary}
         </p>
