@@ -1,4 +1,4 @@
-import type { Project } from "@/data/projects";
+import type { ProjectRecord } from "@/types/project";
 import {
   KNOWN_LANGUAGES,
   LANGUAGE_COLOR_MAP,
@@ -29,7 +29,7 @@ export {
 
 export const normalizeSearchTerm = (input: string) => input.trim().toLowerCase();
 
-export const sortProjects = (items: Project[]): Project[] =>
+export const sortProjects = (items: ProjectRecord[]): ProjectRecord[] =>
   [...items].sort((a, b) => {
     if (a.year !== b.year) {
       return b.year - a.year;
@@ -38,12 +38,12 @@ export const sortProjects = (items: Project[]): Project[] =>
     return a.title.localeCompare(b.title);
   });
 
-export const getUniqueYears = (projects: Project[]): string[] =>
+export const getUniqueYears = (projects: ProjectRecord[]): string[] =>
   Array.from(new Set(projects.map((project) => project.year.toString()))).sort(
     (a, b) => Number(b) - Number(a),
   );
 
-export const getUniqueLanguages = (projects: Project[]): string[] => {
+export const getUniqueLanguages = (projects: ProjectRecord[]): string[] => {
   const languageSet = new Set<string>();
   projects.forEach((project) => {
     project.tech.forEach((tech) => languageSet.add(tech));
@@ -51,10 +51,10 @@ export const getUniqueLanguages = (projects: Project[]): string[] => {
   return Array.from(languageSet).sort();
 };
 
-export const getUniqueCategories = (projects: Project[]): string[] =>
+export const getUniqueCategories = (projects: ProjectRecord[]): string[] =>
   Array.from(new Set(projects.map((project) => project.category))).sort();
 
-export const getUniqueTags = (projects: Project[]): string[] => {
+export const getUniqueTags = (projects: ProjectRecord[]): string[] => {
   const tagSet = new Set<string>();
   projects.forEach((project) => {
     project.tags?.forEach((tag) => tagSet.add(tag));
@@ -66,9 +66,9 @@ const includesAny = (haystack: string[], needles: string[]) =>
   needles.some((needle) => haystack.includes(needle));
 
 export const filterProjects = (
-  projects: Project[],
+  projects: ProjectRecord[],
   criteria: ProjectFilterCriteria,
-): Project[] => {
+): ProjectRecord[] => {
   const normalizedSearch = normalizeSearchTerm(criteria.searchTerm);
 
   return sortProjects(projects).filter((project) => {
@@ -121,7 +121,7 @@ export const toggleListValue = <T extends string>(collection: T[], value: T): T[
     ? collection.filter((item) => item !== value)
     : [...collection, value];
 
-export const resolveProjectLanguage = (project: Project): string => {
+export const resolveProjectLanguage = (project: ProjectRecord): string => {
   const fromTech = project.tech.find((tech) => KNOWN_LANGUAGES.includes(tech));
   if (fromTech) {
     return fromTech;
@@ -135,13 +135,13 @@ export const resolveProjectLanguage = (project: Project): string => {
   return project.tech[0] ?? project.category;
 };
 
-export const getProjectCounts = (projects: Project[]) => ({
+export const getProjectCounts = (projects: ProjectRecord[]) => ({
   total: projects.length,
   featured: projects.filter((project) => project.featured).length,
   categories: getUniqueCategories(projects).length,
 });
 
-export const getLatestProject = (projects: Project[]): Project | null => {
+export const getLatestProject = (projects: ProjectRecord[]): ProjectRecord | null => {
   const sorted = sortProjects(projects);
   return sorted.length > 0 ? sorted[0] : null;
 };

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import type { Project } from "@/data/projects";
+import type { ProjectRecord } from "@/types/project";
 import {
   LANGUAGE_COLOR_MAP,
   PROJECT_CARD_LANGUAGE_FALLBACK,
@@ -12,7 +12,7 @@ import {
 import { resolveProjectLanguage } from "@/lib/utils/projects";
 
 type ProjectCardProps = {
-  project: Project;
+  project: ProjectRecord;
   density?: ProjectCardDensity;
 };
 
@@ -42,8 +42,8 @@ export function ProjectCard({ project, density = "compact" }: ProjectCardProps) 
         >
           {hasImage ? (
             <>
-              <Image
-                src={project.image as string}
+        <Image
+          src={project.image as string}
                 alt={`${project.title} preview`}
                 fill
                 sizes="(min-width: 1280px) 320px, (min-width: 768px) 45vw, 90vw"
