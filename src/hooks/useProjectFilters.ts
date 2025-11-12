@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import type { Project } from "@/data/projects";
 import {
   PROJECT_DENSITY_OPTIONS,
   PROJECT_PAGE_SIZES,
@@ -16,6 +15,7 @@ import {
   normalizeSearchTerm,
   toggleListValue,
 } from "@/lib/utils/projects";
+import type { ProjectRecord } from "@/types/project";
 
 const DEFAULT_DENSITY: ProjectCardDensity = PROJECT_DENSITY_OPTIONS[0].value;
 const DEFAULT_PAGE_SIZE = PROJECT_PAGE_SIZES[0];
@@ -41,7 +41,7 @@ type UseProjectFiltersResult = {
   results: {
     totalProjects: number;
     filteredTotal: number;
-    paginatedProjects: Project[];
+    paginatedProjects: ProjectRecord[];
   };
   pagination: {
     currentPage: number;
@@ -64,7 +64,7 @@ type UseProjectFiltersResult = {
   };
 };
 
-export function useProjectFilters(projects: Project[]): UseProjectFiltersResult {
+export function useProjectFilters(projects: ProjectRecord[]): UseProjectFiltersResult {
   const [searchTerm, setSearchTerm] = useState("");
   const [density, setDensity] = useState<ProjectCardDensity>(DEFAULT_DENSITY);
   const [pageSize, setPageSize] = useState<(typeof PROJECT_PAGE_SIZES)[number]>(DEFAULT_PAGE_SIZE);

@@ -1,7 +1,7 @@
 "use client";
 
 import { ProjectCard } from "@/components/ProjectCard";
-import type { Project } from "@/data/projects";
+import type { ProjectRecord } from "@/types/project";
 import { useProjectFilters } from "@/hooks/useProjectFilters";
 import {
   LANGUAGE_COLOR_MAP,
@@ -12,7 +12,7 @@ import {
 } from "@/lib/constants/project";
 
 type ProjectGalleryProps = {
-  projects: Project[];
+  projects: ProjectRecord[];
 };
 
 const formatCount = (value: number) => value.toString().padStart(2, "0");

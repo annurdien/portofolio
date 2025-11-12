@@ -1,13 +1,12 @@
+import { cache } from "react";
+
 import Image from "next/image";
-import { notFound } from "next/navigation";
 import Link from "next/link";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-import { projects } from "@/data/projects";
-import type { Project } from "@/data/projects";
-
-function getProject(slug: string): Project | undefined {
-  return projects.find((project) => project.slug === slug);
-}
+import { fetchProjectBySlug } from "@/lib/repositories/projects";
+import type { ProjectRecord } from "@/types/project";
 
 type ProjectPageProps = {
   params: {
@@ -15,8 +14,12 @@ type ProjectPageProps = {
   };
 };
 
-export function generateMetadata({ params }: ProjectPageProps) {
-  const project = getProject(params.slug);
+const loadProject = cache(async (slug: string): Promise<ProjectRecord | null> => {
+  return fetchProjectBySlug(slug);
+});
+
+export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
+  const project = await loadProject(params.slug);
 
   if (!project) {
     return {};
@@ -28,8 +31,8 @@ export function generateMetadata({ params }: ProjectPageProps) {
   };
 }
 
-export default function ProjectPage({ params }: ProjectPageProps) {
-  const project = getProject(params.slug);
+export default async function ProjectPage({ params }: ProjectPageProps) {
+  const project = await loadProject(params.slug);
 
   if (!project) {
     notFound();

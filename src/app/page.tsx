@@ -1,9 +1,11 @@
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { ProjectGallery } from "@/components/ProjectGallery";
-import { projects } from "@/data/projects";
+import { fetchProjects } from "@/lib/repositories/projects";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const projects = await fetchProjects();
+
   return (
     <div className="relative min-h-screen text-primary-100">
       <Header />
