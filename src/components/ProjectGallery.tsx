@@ -1,187 +1,50 @@
 "use client";
 
-import { useEffect, useMemo, useState, type Dispatch, type SetStateAction } from "react";
-
 import { ProjectCard } from "@/components/ProjectCard";
 import type { Project } from "@/data/projects";
+import { useProjectFilters } from "@/hooks/useProjectFilters";
+import {
+  LANGUAGE_COLOR_MAP,
+  PROJECT_DENSITY_GRID_MAP,
+  PROJECT_DENSITY_OPTIONS,
+  PROJECT_FILTER_LANGUAGE_FALLBACK,
+  PROJECT_PAGE_SIZES,
+} from "@/lib/constants/project";
 
 type ProjectGalleryProps = {
   projects: Project[];
 };
 
-const sortProjects = (items: Project[]) =>
-  [...items].sort((a, b) => {
-    if (a.year !== b.year) return b.year - a.year;
-    return a.title.localeCompare(b.title);
-  });
-
-const densityOptions = [
-  { label: "Compact", value: "compact" as const },
-  { label: "Comfortable", value: "comfortable" as const },
-  { label: "Large", value: "large" as const },
-];
-
-const densityGridMap: Record<(typeof densityOptions)[number]["value"], string> = {
-  compact: "md:grid-cols-2 xl:grid-cols-3",
-  comfortable: "md:grid-cols-2",
-  large: "md:grid-cols-1",
-};
-
-const pageSizeOptions = [6, 12, 24, 48] as const;
-
-const languageColorMap: Record<string, string> = {
-  JavaScript: "bg-[#F8E71C] text-background-950",
-  TypeScript: "bg-[#58C4F6] text-background-950",
-  Python: "bg-[#5B8DEC] text-background-950",
-  "C#": "bg-[#9B6CFF] text-background-900",
-  "C++": "bg-[#FF5D9D] text-background-900",
-  Go: "bg-[#7DE2D1] text-background-950",
-  Rust: "bg-[#FF9A57] text-background-900",
-  Ruby: "bg-[#FF7CA3] text-background-900",
-  PHP: "bg-[#9E8CFF] text-background-900",
-  Swift: "bg-[#FFC75F] text-background-950",
-  Kotlin: "bg-[#FF8EBB] text-background-900",
-  Elixir: "bg-[#C68BFF] text-background-900",
-  Scala: "bg-[#FF7F6A] text-background-900",
-  Java: "bg-[#FFD966] text-background-950",
-};
+const formatCount = (value: number) => value.toString().padStart(2, "0");
 
 export function ProjectGallery({ projects }: ProjectGalleryProps) {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [activeYears, setActiveYears] = useState<string[]>([]);
-  const [activeLanguages, setActiveLanguages] = useState<string[]>([]);
-  const [activeCategories, setActiveCategories] = useState<string[]>([]);
-  const [activeTags, setActiveTags] = useState<string[]>([]);
-  const [density, setDensity] = useState<(typeof densityOptions)[number]["value"]>("compact");
-  const [pageSize, setPageSize] = useState<(typeof pageSizeOptions)[number]>(pageSizeOptions[0]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const {
+    state: {
+      searchTerm,
+      density,
+      pageSize,
+      activeYears,
+      activeLanguages,
+      activeCategories,
+      activeTags,
+    },
+  derived: { years, languages, categories, tags, hasActiveFilters, categoryCounts },
+    results: { totalProjects, filteredTotal, paginatedProjects },
+    pagination: { currentPage, totalPages, startIndex, endIndex, goToPreviousPage, goToNextPage },
+    actions: {
+      setSearchTerm,
+      setDensity,
+      setPageSize,
+      toggleYear,
+      toggleLanguage,
+      toggleCategory,
+      toggleTag,
+      clearFilters,
+    },
+  } = useProjectFilters(projects);
 
-  const years = useMemo(
-    () =>
-      Array.from(new Set(projects.map((project) => project.year.toString()))).sort(
-        (a, b) => Number(b) - Number(a)
-      ),
-    [projects]
-  );
-
-  const languages = useMemo(() => {
-    const languageSet = new Set<string>();
-    projects.forEach((project) => {
-      project.tech.forEach((tech) => languageSet.add(tech));
-    });
-    return Array.from(languageSet).sort();
-  }, [projects]);
-
-  const categories = useMemo(
-    () =>
-      Array.from(new Set(projects.map((project) => project.category))).sort(),
-    [projects]
-  );
-
-  const tags = useMemo(() => {
-    const tagSet = new Set<string>();
-    projects.forEach((project) => {
-      project.tags?.forEach((tag) => tagSet.add(tag));
-    });
-    return Array.from(tagSet).sort();
-  }, [projects]);
-
-  const normalizedSearch = useMemo(() => searchTerm.trim().toLowerCase(), [searchTerm]);
-
-  const toggleSelection = <T extends string>(
-    value: T,
-    setter: Dispatch<SetStateAction<T[]>>
-  ) => {
-    setter((previous) =>
-      previous.includes(value)
-        ? previous.filter((item) => item !== value)
-        : [...previous, value]
-    );
-  };
-
-  const clearFilters = () => {
-    setActiveYears([]);
-    setActiveLanguages([]);
-    setActiveCategories([]);
-    setActiveTags([]);
-  };
-
-  const hasActiveFilters =
-    activeYears.length +
-      activeLanguages.length +
-      activeCategories.length +
-      activeTags.length >
-    0;
-
-  const filteredProjects = useMemo(() => {
-    return sortProjects(projects).filter((project) => {
-      if (normalizedSearch) {
-        const haystack = [
-          project.title,
-          project.summary,
-          project.description,
-          project.category,
-          project.tags?.join(" ") ?? "",
-          project.tech.join(" "),
-        ]
-          .join(" ")
-          .toLowerCase();
-
-        if (!haystack.includes(normalizedSearch)) {
-          return false;
-        }
-      }
-
-      if (activeYears.length && !activeYears.includes(project.year.toString())) {
-        return false;
-      }
-
-      if (activeCategories.length && !activeCategories.includes(project.category)) {
-        return false;
-      }
-
-      if (activeLanguages.length) {
-        const projectLanguages = project.tech;
-        const languageHit = projectLanguages.some((tech) => activeLanguages.includes(tech));
-        if (!languageHit) {
-          return false;
-        }
-      }
-
-      if (activeTags.length) {
-        const projectTags = project.tags ?? [];
-        const tagHit = projectTags.some((tag) => activeTags.includes(tag));
-        if (!tagHit) {
-          return false;
-        }
-      }
-
-      return true;
-    });
-  }, [
-    projects,
-    normalizedSearch,
-    activeYears,
-    activeLanguages,
-    activeCategories,
-    activeTags,
-  ]);
-
-  const totalPages = Math.max(1, Math.ceil(filteredProjects.length / pageSize));
-  const safePage = Math.min(currentPage, totalPages);
-  const startIndex = (safePage - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
-  const paginatedProjects = filteredProjects.slice(startIndex, endIndex);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [normalizedSearch, activeYears, activeLanguages, activeCategories, activeTags, pageSize]);
-
-  useEffect(() => {
-    if (currentPage > totalPages) {
-      setCurrentPage(totalPages);
-    }
-  }, [currentPage, totalPages]);
+  const displayStart = filteredTotal === 0 ? 0 : startIndex + 1;
+  const displayEnd = filteredTotal === 0 ? 0 : endIndex;
 
   return (
     <section id="projects" className="relative mx-auto max-w-6xl px-6 pb-20">
@@ -196,7 +59,9 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
             </p>
           </div>
           <div className="flex flex-col gap-2 text-xs uppercase tracking-[0.25em] text-white">
-            <span>Results · {filteredProjects.length.toString().padStart(2, "0")}/{projects.length.toString().padStart(2, "0")}</span>
+            <span>
+              Results · {formatCount(filteredTotal)}/{formatCount(totalProjects)}
+            </span>
             <span>Filters active · {hasActiveFilters ? "Yes" : "No"}</span>
           </div>
         </div>
@@ -226,7 +91,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
             <div className="flex flex-col gap-2">
               <span>Card density</span>
               <div className="inline-flex border border-primary-400/40 bg-background-900">
-                {densityOptions.map((option) => {
+                {PROJECT_DENSITY_OPTIONS.map((option) => {
                   const isActive = option.value === density;
                   return (
                     <button
@@ -248,7 +113,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
             <div className="flex flex-col gap-2">
               <span>Items per page</span>
               <div className="inline-flex border border-primary-400/40 bg-background-900">
-                {pageSizeOptions.map((option) => {
+                {PROJECT_PAGE_SIZES.map((option) => {
                   const isActive = option === pageSize;
                   return (
                     <button
@@ -294,7 +159,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                     <button
                       key={year}
                       type="button"
-                      onClick={() => toggleSelection(year, setActiveYears)}
+                      onClick={() => toggleYear(year)}
                       className={`border px-3 py-1 text-[0.65rem] uppercase tracking-[0.1em] transition duration-150 ease-terminal ${
                         active
                           ? "border-primary-400 bg-primary-500/10 text-white"
@@ -313,12 +178,12 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
               <div className="flex flex-wrap gap-2">
                 {languages.map((language) => {
                   const active = activeLanguages.includes(language);
-                  const colorClass = languageColorMap[language] ?? "bg-white/20 text-white";
+                  const colorClass = LANGUAGE_COLOR_MAP[language] ?? PROJECT_FILTER_LANGUAGE_FALLBACK;
                   return (
                     <button
                       key={language}
                       type="button"
-                      onClick={() => toggleSelection(language, setActiveLanguages)}
+                      onClick={() => toggleLanguage(language)}
                       className={`border border-white/20 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] transition duration-150 ease-terminal ${colorClass} ${
                         active ? "opacity-100 shadow-[0_0_0_1px_rgba(255,255,255,0.25)]" : "opacity-75 hover:opacity-100"
                       }`}
@@ -339,7 +204,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                     <button
                       key={category}
                       type="button"
-                      onClick={() => toggleSelection(category, setActiveCategories)}
+                      onClick={() => toggleCategory(category)}
                       className={`flex items-center justify-between border px-3 py-2 text-[0.65rem] uppercase tracking-[0.2em] transition duration-150 ease-terminal ${
                         active
                           ? "border-primary-400 bg-primary-500/10 text-white"
@@ -348,7 +213,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                     >
                       {category}
                       <span className="text-[0.55rem] text-white">
-                        {projects.filter((project) => project.category === category).length}
+                        {categoryCounts[category] ?? 0}
                       </span>
                     </button>
                   );
@@ -366,7 +231,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
                       <button
                         key={tag}
                         type="button"
-                        onClick={() => toggleSelection(tag, setActiveTags)}
+                        onClick={() => toggleTag(tag)}
                         className={`border px-3 py-1 text-[0.65rem] uppercase tracking-[0.2em] transition duration-150 ease-terminal ${
                           active
                             ? "border-primary-400 bg-primary-500/15 text-white"
@@ -383,12 +248,12 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
           </aside>
 
         <div className="space-y-10">
-          {filteredProjects.length === 0 ? (
+          {filteredTotal === 0 ? (
             <div className="border border-primary-400/40 bg-background-900 p-12 text-center text-sm text-primary-200/70">
               No projects match that combination yet.
             </div>
           ) : (
-            <div className={`grid gap-6 ${densityGridMap[density]}`}>
+            <div className={`grid gap-6 ${PROJECT_DENSITY_GRID_MAP[density]}`}>
               {paginatedProjects.map((project) => (
                 <ProjectCard key={project.slug} project={project} density={density} />
               ))}
@@ -396,24 +261,24 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
           )}
           <div className="flex flex-col gap-4 border-t border-primary-400/40 pt-6 text-[0.65rem] uppercase tracking-[0.2em] text-white sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
             <span className="whitespace-nowrap">
-              Showing {filteredProjects.length === 0 ? 0 : startIndex + 1}-{Math.min(endIndex, filteredProjects.length)} of {filteredProjects.length} filtered · {projects.length} total
+              Showing {displayStart}-{displayEnd} of {filteredTotal} filtered · {totalProjects} total
             </span>
             <div className="flex flex-wrap items-center gap-2 sm:justify-end">
               <button
                 type="button"
-                onClick={() => setCurrentPage((page) => Math.max(1, page - 1))}
-                disabled={safePage === 1}
+                onClick={goToPreviousPage}
+                disabled={currentPage === 1}
                 className="border border-primary-400/40 px-3 py-1 uppercase tracking-[0.15em] text-primary-200/70 transition duration-150 ease-terminal hover:border-primary-400 hover:text-primary-100 disabled:cursor-not-allowed disabled:border-primary-400/10 disabled:text-primary-200/30"
               >
                 Prev
               </button>
               <span className="px-2 py-1 text-primary-200/70">
-                Page {safePage}/{totalPages}
+                Page {currentPage}/{totalPages}
               </span>
               <button
                 type="button"
-                onClick={() => setCurrentPage((page) => Math.min(totalPages, page + 1))}
-                disabled={safePage === totalPages}
+                onClick={goToNextPage}
+                disabled={currentPage === totalPages}
                 className="border border-primary-400/40 px-3 py-1 uppercase tracking-[0.15em] text-primary-200/70 transition duration-150 ease-terminal hover:border-primary-400 hover:text-primary-100 disabled:cursor-not-allowed disabled:border-primary-400/10 disabled:text-primary-200/30"
               >
                 Next

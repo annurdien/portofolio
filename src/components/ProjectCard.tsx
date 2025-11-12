@@ -2,84 +2,30 @@ import Image from "next/image";
 import Link from "next/link";
 
 import type { Project } from "@/data/projects";
-
-type CardDensity = "compact" | "comfortable" | "large";
+import {
+  LANGUAGE_COLOR_MAP,
+  PROJECT_CARD_LANGUAGE_FALLBACK,
+  PROJECT_DENSITY_CARD_PADDING,
+  PROJECT_DENSITY_CARD_PREVIEW,
+  type ProjectCardDensity,
+} from "@/lib/constants/project";
+import { resolveProjectLanguage } from "@/lib/utils/projects";
 
 type ProjectCardProps = {
   project: Project;
-  density?: CardDensity;
+  density?: ProjectCardDensity;
 };
-
-const densityPaddingMap: Record<CardDensity, string> = {
-  compact: "p-4",
-  comfortable: "p-6",
-  large: "p-7",
-};
-
-const densityPreviewMap: Record<CardDensity, string> = {
-  compact: "h-28",
-  comfortable: "h-36",
-  large: "h-44",
-};
-
-const knownLanguages = [
-  "Go",
-  "Rust",
-  "Python",
-  "TypeScript",
-  "JavaScript",
-  "Java",
-  "C#",
-  "C++",
-  "Ruby",
-  "PHP",
-  "Swift",
-  "Kotlin",
-  "Elixir",
-  "Scala",
-];
-
-const languageStyleMap: Record<string, string> = {
-  JavaScript: "bg-[#F8E71C] text-background-950",
-  TypeScript: "bg-[#58C4F6] text-background-950",
-  Python: "bg-[#5B8DEC] text-background-950",
-  "C#": "bg-[#9B6CFF] text-background-900",
-  "C++": "bg-[#FF5D9D] text-background-900",
-  Go: "bg-[#7DE2D1] text-background-950",
-  Rust: "bg-[#FF9A57] text-background-900",
-  Ruby: "bg-[#FF7CA3] text-background-900",
-  PHP: "bg-[#9E8CFF] text-background-900",
-  Swift: "bg-[#FFC75F] text-background-950",
-  Kotlin: "bg-[#FF8EBB] text-background-900",
-  Elixir: "bg-[#C68BFF] text-background-900",
-  Scala: "bg-[#FF7F6A] text-background-900",
-  Java: "bg-[#FFD966] text-background-950",
-};
-
-function resolveLanguage(project: Project) {
-  const fromTech = project.tech.find((tech) => knownLanguages.includes(tech));
-  if (fromTech) {
-    return fromTech;
-  }
-
-  const fromTags = project.tags?.find((tag) => knownLanguages.includes(tag));
-  if (fromTags) {
-    return fromTags;
-  }
-
-  return project.tech[0] ?? project.category;
-}
 
 export function ProjectCard({ project, density = "compact" }: ProjectCardProps) {
-  const paddingClass = densityPaddingMap[density];
-  const previewClass = densityPreviewMap[density];
-  const language = resolveLanguage(project);
+  const paddingClass = PROJECT_DENSITY_CARD_PADDING[density];
+  const previewClass = PROJECT_DENSITY_CARD_PREVIEW[density];
+  const language = resolveProjectLanguage(project);
   const hasImage = Boolean(project.image);
   const isCompact = density === "compact";
   const textSpacingClass = isCompact ? "mt-2" : "mt-3";
   const tagSpacingClass = isCompact ? "mt-auto pt-4" : "mt-auto pt-5";
   const previewMarginClass = isCompact ? "mb-3" : "mb-4";
-  const languageClassName = languageStyleMap[language] ?? "bg-white/18 text-white/85";
+  const languageClassName = LANGUAGE_COLOR_MAP[language] ?? PROJECT_CARD_LANGUAGE_FALLBACK;
 
   return (
     <Link
@@ -118,11 +64,11 @@ export function ProjectCard({ project, density = "compact" }: ProjectCardProps) 
           )}
         </div>
 
-        <h2 className="text-m font-semibold tracking-[0.15em] text-yellow-300 transition-colors duration-200 group-hover:text-white">
+        <h2 className="text-m font-semibold text-yellow-300 transition-colors duration-200 group-hover:text-white">
           {project.title}
         </h2>
         <p
-          className={`${textSpacingClass} text-[0.85rem] leading-5 text-white/80`}
+          className={`${textSpacingClass} text-[0.85rem] leading-5 text-white`}
           style={{ display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}
         >
           {project.summary}

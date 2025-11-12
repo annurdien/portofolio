@@ -3,10 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-const navLinks = [
-  { label: "Projects", href: "#projects", accent: true },
-  { label: "About", href: "/about" },
-];
+import { NAV_LINKS } from "@/lib/constants/site";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -24,7 +21,7 @@ export function Header() {
           Rasyid Portfolio Log
         </Link>
         <nav className="hidden items-center gap-6 text-[0.65rem] uppercase tracking-[0.32em] text-primary-200/70 lg:flex">
-          {navLinks.map((link) => (
+          {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -66,7 +63,7 @@ export function Header() {
       {open && (
         <nav className="lg:hidden">
           <ul className="space-y-1 border-t border-primary-400/40 bg-background-900 px-6 py-4 text-sm font-medium uppercase tracking-[0.25em] text-primary-100">
-            {navLinks.map((link) => (
+            {NAV_LINKS.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
