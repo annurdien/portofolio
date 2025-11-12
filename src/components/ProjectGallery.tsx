@@ -22,12 +22,12 @@ const densityOptions = [
 ];
 
 const densityGridMap: Record<(typeof densityOptions)[number]["value"], string> = {
-  compact: "md:grid-cols-2 xl:grid-cols-4",
+  compact: "md:grid-cols-2 xl:grid-cols-3",
   comfortable: "md:grid-cols-2",
   large: "md:grid-cols-1",
 };
 
-const pageSizeOptions = [8, 16, 32, 64] as const;
+const pageSizeOptions = [6, 12, 24, 48] as const;
 
 const languageColorMap: Record<string, string> = {
   JavaScript: "bg-[#F8E71C] text-background-950",
@@ -184,7 +184,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
   }, [currentPage, totalPages]);
 
   return (
-    <section id="projects" className="relative mx-auto max-w-[85rem] px-6 pb-20">
+    <section id="projects" className="relative mx-auto max-w-6xl px-6 pb-20">
       <div>
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div className="space-y-3">
@@ -394,7 +394,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
               ))}
             </div>
           )}
-          <div className="flex flex-col gap-4 border-t border-primary-400/40 pt-6 text-[0.65rem] uppercase tracking-[0.2em] text-primary-200/60 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-4 border-t border-primary-400/40 pt-6 text-[0.65rem] uppercase tracking-[0.2em] text-white sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
             <span className="whitespace-nowrap">
               Showing {filteredProjects.length === 0 ? 0 : startIndex + 1}-{Math.min(endIndex, filteredProjects.length)} of {filteredProjects.length} filtered · {projects.length} total
             </span>
