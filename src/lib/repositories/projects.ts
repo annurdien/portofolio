@@ -1,6 +1,6 @@
-import { cache } from "react";
+import { unstable_cache } from "next/cache";
 
-import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { createPublicSupabaseClient } from "@/lib/supabase/public";
 import type { NewProjectPayload, ProjectRecord } from "@/types/project";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/types/supabase";
@@ -9,11 +9,30 @@ const PROJECTS_TABLE = "projects";
 
 type TypedSupabaseClient = SupabaseClient<Database>;
 
-export const fetchProjects = cache(async (): Promise<ProjectRecord[]> => {
-  const supabase = createServerSupabaseClient();
+const selectColumns = `
+  id,
+  slug,
+  title,
+  summary,
+  description,
+  tech,
+  links,
+  category,
+  year,
+  status,
+  featured,
+  metrics,
+  tags,
+  image,
+  created_at,
+  updated_at
+` as const;
+
+const fetchAllProjects = async () => {
+  const supabase = createPublicSupabaseClient();
   const { data, error } = await supabase
     .from(PROJECTS_TABLE)
-    .select("*")
+    .select(selectColumns)
     .order("featured", { ascending: false })
     .order("year", { ascending: false })
     .order("title", { ascending: true });
@@ -23,13 +42,20 @@ export const fetchProjects = cache(async (): Promise<ProjectRecord[]> => {
   }
 
   return data ?? [];
+};
+
+const getProjectsCached = unstable_cache(fetchAllProjects, ["projects"], {
+  revalidate: 300,
+  tags: ["projects"],
 });
 
-export const fetchProjectBySlug = cache(async (slug: string): Promise<ProjectRecord | null> => {
-  const supabase = createServerSupabaseClient();
+export const fetchProjects = async (): Promise<ProjectRecord[]> => getProjectsCached();
+
+const fetchProject = async (slug: string) => {
+  const supabase = createPublicSupabaseClient();
   const { data, error } = await supabase
     .from(PROJECTS_TABLE)
-    .select("*")
+    .select(selectColumns)
     .eq("slug", slug)
     .maybeSingle();
 
@@ -38,7 +64,15 @@ export const fetchProjectBySlug = cache(async (slug: string): Promise<ProjectRec
   }
 
   return data;
+};
+
+const getProjectCached = unstable_cache(fetchProject, ["project"], {
+  revalidate: 300,
+  tags: ["projects", "project"],
 });
+
+export const fetchProjectBySlug = async (slug: string): Promise<ProjectRecord | null> =>
+  getProjectCached(slug);
 
 export async function createProject(supabase: TypedSupabaseClient, payload: NewProjectPayload) {
   const insertPayload = {

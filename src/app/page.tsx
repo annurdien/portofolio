@@ -3,6 +3,8 @@ import { Header } from "@/components/Header";
 import { ProjectGallery } from "@/components/ProjectGallery";
 import { fetchProjects } from "@/lib/repositories/projects";
 
+export const revalidate = 300;
+
 export default async function HomePage() {
   const projects = await fetchProjects();
 

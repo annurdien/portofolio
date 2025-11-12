@@ -14,6 +14,8 @@ type ProjectPageProps = {
   };
 };
 
+export const revalidate = 300;
+
 const loadProject = cache(async (slug: string): Promise<ProjectRecord | null> => {
   return fetchProjectBySlug(slug);
 });

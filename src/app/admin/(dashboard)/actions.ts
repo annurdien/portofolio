@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
 
 import type { ProjectActionState } from "./action-state";
@@ -121,6 +121,8 @@ export async function createProjectAction(_: ProjectActionState, formData: FormD
     image: imageUrl,
   });
 
+  revalidateTag("projects");
+  revalidateTag("project");
   revalidatePath("/");
   revalidatePath(`/projects/${parsed.data.slug}`);
   revalidatePath("/admin");
@@ -158,6 +160,8 @@ export async function deleteProjectAction(formData: FormData) {
 
   await deleteProject(supabase, parsed.data.projectId);
 
+  revalidateTag("projects");
+  revalidateTag("project");
   revalidatePath("/");
   revalidatePath(`/projects/${parsed.data.slug}`);
   revalidatePath("/admin");
@@ -244,10 +248,13 @@ export async function updateProjectAction(_: ProjectActionState, formData: FormD
     image: nextImageUrl,
   });
 
+  revalidateTag("projects");
+  revalidateTag("project");
   revalidatePath("/");
   revalidatePath("/admin");
   revalidatePath(`/projects/${parsed.data.slug}`);
   if (parsed.data.slug !== currentSlug) {
+  revalidateTag("project");
     revalidatePath(`/projects/${currentSlug}`);
   }
 
