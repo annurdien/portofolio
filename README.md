@@ -29,7 +29,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 SUPABASE_SERVICE_ROLE_KEY=...
 ```
 
-The service role key is used only in server-side scripts (like the seeding utility). Do not expose it to the client.
+The service role key stays on the server and is required for admin-only actions (like image uploads and seeding). Do not expose it to the client.
 
 ### Useful Scripts
 
@@ -93,7 +93,7 @@ scripts/
 
 ## Content Management
 
-- Use the admin dashboard at `/admin` to sign in (email/password) and create or delete projects. Image uploads are stored in Supabase Storage and linked automatically.
+- Use the admin dashboard at `/admin` to sign in (email/password) and create, edit, or delete projects. Image uploads are stored in Supabase Storage and linked automatically.
 - For bulk updates, edit `src/data/projects.ts` and rerun the seeding script.
 
 ## Theming & Styling Notes
