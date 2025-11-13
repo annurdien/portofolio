@@ -121,8 +121,8 @@ export async function createProjectAction(_: ProjectActionState, formData: FormD
     image: imageUrl,
   });
 
-  revalidateTag("projects");
-  revalidateTag("project");
+  revalidateTag("projects", { expire: 0 });
+  revalidateTag("project", { expire: 0 });
   revalidatePath("/");
   revalidatePath(`/projects/${parsed.data.slug}`);
   revalidatePath("/admin");
@@ -160,8 +160,8 @@ export async function deleteProjectAction(formData: FormData) {
 
   await deleteProject(supabase, parsed.data.projectId);
 
-  revalidateTag("projects");
-  revalidateTag("project");
+  revalidateTag("projects", { expire: 0 });
+  revalidateTag("project", { expire: 0 });
   revalidatePath("/");
   revalidatePath(`/projects/${parsed.data.slug}`);
   revalidatePath("/admin");
@@ -248,13 +248,13 @@ export async function updateProjectAction(_: ProjectActionState, formData: FormD
     image: nextImageUrl,
   });
 
-  revalidateTag("projects");
-  revalidateTag("project");
+  revalidateTag("projects", { expire: 0 });
+  revalidateTag("project", { expire: 0 });
   revalidatePath("/");
   revalidatePath("/admin");
   revalidatePath(`/projects/${parsed.data.slug}`);
   if (parsed.data.slug !== currentSlug) {
-  revalidateTag("project");
+  revalidateTag("project", { expire: 0 });
     revalidatePath(`/projects/${currentSlug}`);
   }
 

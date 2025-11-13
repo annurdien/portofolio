@@ -38,7 +38,7 @@ async function fetchCurrentProfile(
 }
 
 export async function getAdminContext(options?: { redirectOnFail?: boolean }): Promise<AdminContext> {
-  const supabase = createServerSupabaseClient();
+  const supabase = await createServerSupabaseClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
