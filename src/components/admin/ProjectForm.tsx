@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState, useEffect, useState } from "react";
+import { useFormStatus } from "react-dom";
 
 import {
   initialProjectActionState,
@@ -23,7 +23,7 @@ function SubmitButton() {
 }
 
 export function ProjectForm() {
-  const [state, formAction] = useFormState<ProjectActionState, FormData>(
+  const [state, formAction] = useActionState<ProjectActionState, FormData>(
     createProjectAction,
     initialProjectActionState,
   );

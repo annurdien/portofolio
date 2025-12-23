@@ -9,9 +9,9 @@ import { fetchProjectBySlug } from "@/lib/repositories/projects";
 import type { ProjectRecord } from "@/types/project";
 
 type ProjectPageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 export const revalidate = 300;
@@ -21,7 +21,8 @@ const loadProject = cache(async (slug: string): Promise<ProjectRecord | null> =>
 });
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
-  const project = await loadProject(params.slug);
+  const { slug } = await params;
+  const project = await loadProject(slug);
 
   if (!project) {
     return {};
@@ -34,7 +35,8 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const project = await loadProject(params.slug);
+  const { slug } = await params;
+  const project = await loadProject(slug);
 
   if (!project) {
     notFound();
